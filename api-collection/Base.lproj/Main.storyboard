@@ -16,12 +16,19 @@
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Gzg-NT-SE4">
                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GQC-Mr-ZD8">
+                                    <rect key="frame" x="581" y="21" width="11" height="15"/>
+                                    <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                    <color key="textColor" red="0.98039215690000003" green="0.98039215690000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <color key="backgroundColor" red="0.2666666667" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="ozH-Wa-Fy5">
-                            <rect key="frame" x="0.0" y="116" width="600" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.2666666667" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="GQC-Mr-ZD8" secondAttribute="bottom" constant="8" id="6RA-ya-i9v"/>
+                                <constraint firstAttribute="trailing" secondItem="GQC-Mr-ZD8" secondAttribute="trailing" constant="8" id="PA2-vW-jAM"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LeftDetailCell" textLabel="V7s-YQ-xZc" detailTextLabel="5Yp-G3-6v1" style="IBUITableViewCellStyleValue2" id="Ceb-iv-VUs">
@@ -54,6 +61,9 @@
                             <outlet property="delegate" destination="WCB-l4-h7J" id="2zB-hT-j11"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="metadata" destination="GQC-Mr-ZD8" id="BwM-vm-cO4"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aAD-eQ-M31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

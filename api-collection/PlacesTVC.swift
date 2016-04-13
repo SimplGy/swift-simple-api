@@ -10,6 +10,9 @@ import UIKit
 
 class PlacesTVC: UITableViewController {
 
+  @IBOutlet var metadata: UILabel!
+  
+  // ADVANTAGE: underlying model type is obvious
   let places = APICollection<Place>()
 
   override func viewDidLoad() {
@@ -21,13 +24,12 @@ class PlacesTVC: UITableViewController {
     places.observe( APIHandler(onPlacesUpdated) )
   }
   
-  func onPlacesUpdated(places: [Place]) {
-    print("places.observe callback:")
-    places.forEach { print($0) }
+  func onPlacesUpdated(results: [Place]) {
     tableView.reloadData()
+    metadata.text = "Count: \(results.count)"
   }
-  
-  
+
+
   
   // --------------------------------------------------- MARK: UITableViewController
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,8 +38,8 @@ class PlacesTVC: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("LeftDetailCell", forIndexPath: indexPath)
     let place = places.latest[indexPath.row]
-    cell.textLabel?.text = place.name
-    cell.detailTextLabel?.text = "[\(place.id)]"
+    cell.textLabel?.text = "[\(place.id)]"
+    cell.detailTextLabel?.text = place.name
     return cell
   }
 

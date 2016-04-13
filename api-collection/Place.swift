@@ -11,17 +11,22 @@ class Place: APIModel, CustomStringConvertible {
   }
   
   required init?(json: NSDictionary) {
-    guard let id = json["id"] as? Int, name = json["name"] as? String else {
+    guard let id = json["id"] as? Int else {
+      print("Failed to init id from json: \(json)")
+      return nil
+    }
+    guard let name = json["name"] as? [String] else {
+      print("Failed to init name from json: \(json)")
       return nil
     }
     self.id = id
-    self.name = name
+    self.name = name[0]
   }
   
   func toJSON() -> NSDictionary {
     let json = NSMutableDictionary()
     json.setObject(id, forKey: "id")
-    json.setObject(name, forKey: "name")
+    json.setObject([name], forKey: "name")
     return json
   }
   

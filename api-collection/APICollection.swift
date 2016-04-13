@@ -8,41 +8,8 @@
 import Foundation
 
 
-public protocol APIModel {
-  
-  /**
-   json -> swift object
-   A failable initializer, because we don't trust arbitrary json
-   
-   - parameter json: Dictionary of values.
-   
-   - returns: Typed swift model object. If you don't get valid json, return nil
-   */
-  init?(json: NSDictionary)
-  
-  /**
-   Convert the object into a json representation
-   
-   - returns: NSDictionary representing the json
-   */
-  func toJSON() -> NSDictionary
-}
-
-
-
-
-
-
-
 /// Common behaviors for working with sets of API Models
 class APICollection<ModelType where ModelType: APIModel> {
-  
-  //typealias gotOneCallback  = (item: T) -> ()
-//  typealias onUpdateFn  = (items: [ModelType]) -> ()
-//  typealias onErrFn     = (error:  ErrorType ) -> ()
-  
-  // var afterGet = [] // an array of parser transforms to do after data is gotten. server -> client
-  // var beforeSave = [] // an array of things to do to the object before sending it to the server. client -> server
   
   let definitelyOldInHours = 48                 // hours. if it's old than this, the data can't possibly be any good
   let definitelyFreshInSeconds = 120            // seconds. If it's younger than this, the data can't possibly be bad
@@ -51,11 +18,12 @@ class APICollection<ModelType where ModelType: APIModel> {
     // if definitelyFresh, don't request from server unless `force` is on
     // In between these old and fresh times, use lazy invalidation strategy
   
-  var pendingOperations = 0
+  var pendingOperations = 0 { didSet { print("pendingOperations: \(pendingOperations)") }}
   var thinking: Bool { return pendingOperations > 0 }
+  // var afterGet = [] // an array of parser transforms to do after data is gotten. server -> client
+  // var beforeSave = [] // an array of things to do to the object before sending it to the server. client -> server
   
   // TODO: arrray of weak subscriber references
-//  var subscribers = [onUpdateFn]()
   typealias Handler = APIHandler<ModelType>
   var subscribers = Set<Handler>()
   
@@ -64,9 +32,7 @@ class APICollection<ModelType where ModelType: APIModel> {
   let apiRoot = "http://asdf.com/" // TODO: put in base API class
 //  let url = apiRoot + T.endpoint
   
-  
-  init() {
-  }
+  init() {}
   
   
   
@@ -82,21 +48,32 @@ class APICollection<ModelType where ModelType: APIModel> {
   //func get(id: Int? = nil, force: Bool = false) {}
   
   func get() {
-    // TODO: actually get from server
-    let resp = [
-      [ "id": 1, "name": "One" ],
-      [ "id": 2, "name": "Two" ],
-      [ "id": 3, "name": "Three" ]
-    ]
     
-    self.latest = resp
-      .map { ModelType(json: $0) }
-      .filter { $0 != nil }
-      .map { $0! }
     
-    for handler in subscribers {
-      handler.onUpdate(items: self.latest)
+    let request = NSMutableURLRequest(URL: NSURL(string: "https://waitress-live.appspot.com/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000")!)
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.HTTPMethod = "GET"
+    request.setValue("application/vnd.waitress.v5+json", forHTTPHeaderField: "Accept") // add version header
+    request.timeoutInterval = 5.0
+    
+    let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+      self.pendingOperations--
+      // Networking Erors
+      guard let data = data where error == nil else { return print("Networking error: \(error)") }
+      // HTTP Errors
+      guard let httpStatus = response as? NSHTTPURLResponse else { return print("Can't parse NSHTTPURLResponse") }
+      guard httpStatus.statusCode == 200 else { return print("statusCode should be 200, but is \(httpStatus.statusCode). Response: \(response)") }
+      
+      do {
+        let json = try self.dictionaryFromData(data)
+        self.got(json)
+      } catch {
+        print("error converting response to JSONObjectWithData: \(error)")
+      }
+      
     }
+    pendingOperations++
+    task.resume()
   }
   
   
@@ -131,15 +108,23 @@ class APICollection<ModelType where ModelType: APIModel> {
   
   
   // ----------------------------- MARK: Private
-
-//  private func addSubscriber(handler: Handler) {
-//    
-//    for h in subscribers {
-//      if h == handler { return }
-//    }
-//    
-//    subscribers.append(handler)
-//  }
+  private func dictionaryFromData(data: NSData) throws -> [NSDictionary] {
+    let anyObj = try NSJSONSerialization.JSONObjectWithData(data, options: []) // let this error bubble up
+    guard let json = anyObj as? [NSDictionary] else { throw APIErrors.CantParseDictionaryArray }
+    return json
+  }
+  
+  private func got(response: [NSDictionary]) {
+    self.latest = response
+      .map { ModelType(json: $0) }
+      .filter { $0 != nil }
+      .map { $0! }
+    
+    // Notify subscribers on main thread
+    dispatch_async(dispatch_get_main_queue()) {
+      self.subscribers.forEach { $0.onUpdate(items: self.latest) }
+    }
+  }
   
   
   
