@@ -8,7 +8,9 @@
 
 import Foundation
 
-public protocol APIModel {
+public protocol APIModel: Hashable {
+  
+  // static var cache: APICache<Self> { get }
   
   /**
    json -> swift object
@@ -26,4 +28,24 @@ public protocol APIModel {
    - returns: NSDictionary representing the json
    */
   func toJSON() -> NSDictionary
+
+  /**
+   We use id hashvalue to get equality for determining whether or not to replace an object at a cache key.
+   For determining whether broadcasting an update is warranted, though, we need to know if actual values inside the object have changed or not
+   
+   - parameter otherModel: Another model of the same type, possibly with the same id
+   
+   - returns: true if the models have all the same values
+   */
+//  func sameValueAs<T: APIModel>(otherModel: T) -> Bool
+  
+}
+
+
+extension APIModel {
+  
+  func sameValueAs<T: APIModel>(otherModel: T) -> Bool {
+    return self.toJSON() == otherModel.toJSON()
+  }
+  
 }

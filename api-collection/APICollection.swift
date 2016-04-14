@@ -8,35 +8,45 @@
 import Foundation
 
 
+
+
 /// Common behaviors for working with sets of API Models
-class APICollection<ModelType where ModelType: APIModel> {
+class APICollection<ModelProtocol where ModelProtocol: APIModel> {
   
-  let definitelyOldInHours = 48                 // hours. if it's old than this, the data can't possibly be any good
-  let definitelyFreshInSeconds = 120            // seconds. If it's younger than this, the data can't possibly be bad
-  var lastUpdate = 0                            // timestamp. How long ago was there a server sync?
-    // if definitelyOld, use greedy invalidation
-    // if definitelyFresh, don't request from server unless `force` is on
-    // In between these old and fresh times, use lazy invalidation strategy
-  
-  var pendingOperations = 0 { didSet { print("pendingOperations: \(pendingOperations)") }}
+  var pendingOperations = 0 // { didSet { print("pendingOperations: \(pendingOperations)") }}
   var thinking: Bool { return pendingOperations > 0 }
   // var afterGet = [] // an array of parser transforms to do after data is gotten. server -> client
   // var beforeSave = [] // an array of things to do to the object before sending it to the server. client -> server
   
   // TODO: arrray of weak subscriber references
-  typealias Handler = APIHandler<ModelType>
+  typealias Handler = APIHandler<ModelProtocol>
   var subscribers = Set<Handler>()
   
-  /// Superset of the latest value of each model for all instances of the collection. Duplicates not allowed.
+  /// Timestamped memcache
+//  var cache = APICache<ModelProtocol>()
   
-  /// The latest value of each model this instance of the collection may care about. Duplicates allowed.
-  var latest = [ModelType]()
+  /// The latest server response this collection instance fetched
+  /// It's safe to use this directly, but it may be an empty array if the data has never been fetched, or is definitelyOld
+//  var latest: [ModelProtocol] { return APICache.latest(self.url) }
+//  var latest: [ModelProtocol] { return cache.data }
+  var latest = [ModelProtocol]()
+//  var latest: [ModelProtocol] {
+//    get { return self.cache.definitelyOld ? [] : _latest }
+//    set { _latest = newValue }
+//  }
+  var cache: APICache { return APICache.get(fullUrl) }
   
+  let url: String
+  private var fullUrl: String { return APIConfig.rootUrl + self.url }
   
-  let apiRoot = "http://asdf.com/" // TODO: put in base API class
-//  let url = apiRoot + T.endpoint
-  
-  init() {}
+  /**
+   Create a collection instance
+   
+   - parameter url: The url to fetch the collection from. Will be appended to APIConfig.rootUrl, if present
+   */
+  init(url: String) {
+    self.url = url
+  }
   
   
   
@@ -51,9 +61,45 @@ class APICollection<ModelType where ModelType: APIModel> {
   */
   //func get(id: Int? = nil, force: Bool = false) {}
   
-  func get() {
+  func get(finally: (()->())? = nil) {
     
-    let request = NSMutableURLRequest(URL: NSURL(string: "\(APIConfig.rootUrl)/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000")!)
+    print("")
+    
+    switch cache.freshness {
+      
+    // The cache is definitely up-to-date, we can just use the memory copy and never ask the server
+    // TODO: better design to centralize storage to remove any chance of the instance/memory copy and the cache data getting out of sync
+    case .Fresh:
+      print(".Fresh")
+      got(latest)
+      finally?()
+      
+    // The cache data might be ok. Return the latest data but also query the server for updates
+    case .Uncertain:
+      print(".Uncertain")
+      got(latest)
+      getCollection(fullUrl) {
+        self.got($0)
+        finally?()
+      }
+      
+    // The cache is definitely old. Blank out current results and get new data
+    case .Old:
+      print(".Old")
+      latest = []
+      got(latest)
+      getCollection(fullUrl) {
+        self.got($0)
+        finally?()
+      }
+      
+    }
+  }
+  
+  // TODO: move to APIEndpoint or similar facade
+  func getCollection(url: String, success: ([NSDictionary])->()) {
+    guard let url = NSURL(string: url) else { return print("Couldn't create url: \(APIConfig.rootUrl + self.url)") }
+    let request = NSMutableURLRequest(URL: url)
     request.HTTPMethod = "GET"
     request.timeoutInterval = APIConfig.timeout
     for (key, val) in APIConfig.headers {
@@ -62,15 +108,14 @@ class APICollection<ModelType where ModelType: APIModel> {
     
     let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
       self.pendingOperations--
-      // Networking Erors
       guard let data = data where error == nil else { return print("Networking error: \(error)") }
-      // HTTP Errors
       guard let httpStatus = response as? NSHTTPURLResponse else { return print("Can't parse NSHTTPURLResponse") }
       guard httpStatus.statusCode == 200 else { return print("statusCode should be 200, but is \(httpStatus.statusCode). Response: \(response)") }
       
       do {
         let json = try self.dictionaryFromData(data)
-        self.got(json)
+        self.cache.json = json
+        success(json)
       } catch {
         print("error converting response to JSONObjectWithData: \(error)")
       }
@@ -79,8 +124,6 @@ class APICollection<ModelType where ModelType: APIModel> {
     pendingOperations++
     task.resume()
   }
-  
-  
 
   
   
@@ -93,12 +136,13 @@ class APICollection<ModelType where ModelType: APIModel> {
   */
 //  func observe(id: Int? = nil) {}
   
+  
+  
+  
+  
   func observe(handler: Handler) {
     subscribers.insert(handler)
-    
-    //v TODO: update data
     get()
-//    APIEndpoint.get("/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000", got: got)
   }
   
   /**
@@ -106,7 +150,7 @@ class APICollection<ModelType where ModelType: APIModel> {
    
    - parameter id: if present, invalidate a single id, else invalidate the whole colleciton
    */
-  func invalidate(id: Int?) {}
+  //func invalidate(id: Int?) {}
 
   
   
@@ -120,17 +164,42 @@ class APICollection<ModelType where ModelType: APIModel> {
   }
   
   private func got(response: [NSDictionary]) {
-    self.latest = response
-      .map { ModelType(json: $0) }
+    let parsedItems = response
+      .map    { ModelProtocol(json: $0) }
       .filter { $0 != nil }
-      .map { $0! }
+      .map    { $0! }
+    got(parsedItems)
+  }
+  
+  private func got(items: [ModelProtocol]) {
+    print("got \(items.count) items")
+    
+    // if items == self.latest { return print("items are identical") }
+    var identical = true
+    if items.count != latest.count {
+      identical = false
+      print("different counts")
+    } else {
+      for (idx, item) in items.enumerate() {
+        if !item.sameValueAs(latest[idx]) {
+          identical = false
+          print("different values")
+          print(item.toJSON())
+          print(latest[idx].toJSON())
+          break
+        }
+      }
+    }
     
     // Notify subscribers on main thread
     dispatch_async(dispatch_get_main_queue()) {
-      self.subscribers.forEach { $0.onUpdate(items: self.latest) }
+      //      self.cache.data = parsedItems
+      self.latest = items
+      if identical { return print("identical items, not broadcasting") }
+      self.subscribers.forEach { $0.onUpdate(items: items) }
     }
+    
   }
-  
   
   
   

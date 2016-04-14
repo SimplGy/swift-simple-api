@@ -9,10 +9,10 @@
 import UIKit
 
 
-class ModelDisplayerVC: UIViewController {
+class PlaceDisplayerVC: UIViewController {
 
   @IBOutlet var textView: UITextView!
-  var model: APIModel?
+  var model: Place?
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(true)

@@ -12,7 +12,8 @@ Swift offers some challenges for a project like this, at least for someone not u
 
 * generics -- almost by definition, to write DRY code for getting, saving, and notifying as it relates to model objects, you have to deal with generics a lot. Classes with generics constrained, protocols with generic parameters... it can be a lot.
 * no block equality -- The intentional lack of block equality in swift makes it difficult to have subscriber lists that contain only functions, so there's a handler abstraction that I wouldn't otherwise have wanted.
-* Hashable protocol implementations -- since we want to deal with cache objects in the general case, but let everyone define equality for their models as they see fit.
+* Hashable protocol implementations ([PATs](https://www.youtube.com/watch?v=XWoNjiSPqI8)) -- since we want to deal with cache objects in the general case, but let everyone define equality for their models as they see fit.
+* "static stored properties not yet supported in generic types" -- challenging, because a memcache should absolutely have a static container of generic `Model` objects.
 
 ## Design Goals
 
@@ -24,11 +25,11 @@ Swift offers some challenges for a project like this, at least for someone not u
 
 - [x] Demo supports showing model.toJSON() for each item
 - [x] API is configurable
-- [ ] Stores results to a mem cache
+- [x] Stores results to a mem cache
+- [ ] Stores results to a disk cache
 - [ ] Demo includes more than one collection type
 - [ ] Single object gets are supported
 
 ## Future
 
 - [ ] mem cache FIFO invalidatable
-- [ ] Stores results to a disk cache

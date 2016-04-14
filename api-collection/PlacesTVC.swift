@@ -13,7 +13,7 @@ class PlacesTVC: UITableViewController {
   @IBOutlet var metadata: UILabel!
   
   // ADVANTAGE: underlying model type is obvious
-  let places = APICollection<Place>()
+  let places = APICollection<Place>(url: "/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000")
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -22,14 +22,29 @@ class PlacesTVC: UITableViewController {
     // ADVANTAGE: error callback is optional
     // ADVANTAGE: don't need to make this view class a delegate
     places.observe( APIHandler(onPlacesUpdated) )
+    refreshControl = UIRefreshControl()
+    refreshControl?.backgroundColor = UIColor.darkGrayColor()
+    refreshControl?.tintColor = UIColor.whiteColor()
+    refreshControl?.addTarget(self, action: "onPullToRefresh", forControlEvents: .ValueChanged)
   }
   
+  
+  // --------------------------------------------------- MARK: APIHandler
   func onPlacesUpdated(results: [Place]) {
+    print("onPlacesUpdated \(results.count)")
     tableView.reloadData()
     metadata.text = "Count: \(results.count)"
   }
 
 
+  func onPullToRefresh() {
+    print("")
+    print("onPullToRefresh")
+    places.get() {
+      print("finally")
+      self.refreshControl?.endRefreshing()
+    }
+  }
   
   // --------------------------------------------------- MARK: UITableViewController
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,14 +52,14 @@ class PlacesTVC: UITableViewController {
   }
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("LeftDetailCell", forIndexPath: indexPath)
-    let place = places.latest[indexPath.row]
-    cell.textLabel?.text = "[\(place.id)]"
-    cell.detailTextLabel?.text = place.name
+    let place = places.latest[safe: indexPath.row]
+    cell.textLabel?.text = "[\(place?.id ?? -1)]"
+    cell.detailTextLabel?.text = place?.name
     return cell
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     print("didSelectRowAtIndexPath \(indexPath.row)")
-    if let vc = UIStoryboard(name: "ModelDisplayerVC", bundle: nil).instantiateInitialViewController() as? ModelDisplayerVC {
+    if let vc = UIStoryboard(name: "PlaceDisplayerVC", bundle: nil).instantiateInitialViewController() as? PlaceDisplayerVC {
       vc.model = places.latest[indexPath.row]
       self.navigationController?.pushViewController(vc, animated: true)
     }
