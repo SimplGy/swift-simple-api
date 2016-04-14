@@ -27,7 +27,11 @@ class APICollection<ModelType where ModelType: APIModel> {
   typealias Handler = APIHandler<ModelType>
   var subscribers = Set<Handler>()
   
+  /// Superset of the latest value of each model for all instances of the collection. Duplicates not allowed.
+  
+  /// The latest value of each model this instance of the collection may care about. Duplicates allowed.
   var latest = [ModelType]()
+  
   
   let apiRoot = "http://asdf.com/" // TODO: put in base API class
 //  let url = apiRoot + T.endpoint
@@ -49,12 +53,12 @@ class APICollection<ModelType where ModelType: APIModel> {
   
   func get() {
     
-    
-    let request = NSMutableURLRequest(URL: NSURL(string: "https://waitress-live.appspot.com/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000")!)
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    let request = NSMutableURLRequest(URL: NSURL(string: "\(APIConfig.rootUrl)/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000")!)
     request.HTTPMethod = "GET"
-    request.setValue("application/vnd.waitress.v5+json", forHTTPHeaderField: "Accept") // add version header
-    request.timeoutInterval = 5.0
+    request.timeoutInterval = APIConfig.timeout
+    for (key, val) in APIConfig.headers {
+      request.setValue(val, forHTTPHeaderField: key)
+    }
     
     let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
       self.pendingOperations--
@@ -92,8 +96,9 @@ class APICollection<ModelType where ModelType: APIModel> {
   func observe(handler: Handler) {
     subscribers.insert(handler)
     
-    // TODO: update data
+    //v TODO: update data
     get()
+//    APIEndpoint.get("/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000", got: got)
   }
   
   /**

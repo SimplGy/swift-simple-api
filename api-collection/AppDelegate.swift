@@ -15,7 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
+    
+    APIConfig.rootUrl = "https://waitress-live.appspot.com"
+    APIConfig.headers["Accept"] = "application/vnd.waitress.v5+json"
+    
     return true
   }
 
