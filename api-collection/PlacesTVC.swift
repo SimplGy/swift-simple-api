@@ -17,7 +17,7 @@ class PlacesTVC: UITableViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    navigationItem.title = "APICollection<Place>"
     // ADVANTAGE: one call to set up fetch & observation
     // ADVANTAGE: error callback is optional
     // ADVANTAGE: don't need to make this view class a delegate
@@ -42,6 +42,13 @@ class PlacesTVC: UITableViewController {
     cell.detailTextLabel?.text = place.name
     return cell
   }
-
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    print("didSelectRowAtIndexPath \(indexPath.row)")
+    if let vc = UIStoryboard(name: "ModelDisplayerVC", bundle: nil).instantiateInitialViewController() as? ModelDisplayerVC {
+      vc.model = places.latest[indexPath.row]
+      self.navigationController?.pushViewController(vc, animated: true)
+    }
+  }
+  
 }
 

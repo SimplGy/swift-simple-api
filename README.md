@@ -2,11 +2,17 @@
 
 A pursuit of the best API interface I can build in swift.
 
-For me, best means "easiest to use" from the perspective of "userland" code. That is, code written by normal application developers.
+For me, best means "easiest to use" from the perspective of userland code. That is, code written by normal application developers.
 
-Some ideas borrowed from Backbone collections. I always liked the way you could define toJSON and fromJSON at a generic level there. Much easier in JS than swift, but seems doable here too.
+Some ideas borrowed from Backbone collections. Collections contain a set of homogenous models. You define the toJSON and fromJSON behavior at the model layer.
 
-The intentional lack of block equality in swift makes it difficult to have subscriber lists that contain only functions, so there's a handler abstraction.
+Other ideas borrowd from RFP observables. The idea of data represented as a continuum of time, where the latest value is syncronously available, is a perfect match for most application data model needs.
+
+Swift offers some challenges for a project like this, at least for someone not used to dealing with types:
+
+* generics -- almost by definition, to write DRY code for getting, saving, and notifying as it relates to model objects, you have to deal with generics a lot. Classes with generics constrained, protocols with generic parameters... it can be a lot.
+* no block equality -- The intentional lack of block equality in swift makes it difficult to have subscriber lists that contain only functions, so there's a handler abstraction that I wouldn't otherwise have wanted.
+
 
 ## Design Goals
 
@@ -16,6 +22,7 @@ The intentional lack of block equality in swift makes it difficult to have subsc
 
 ## Good enough to use when...
 
+- [x] Demo supports showing model.toJSON() for each item
 - [ ] API is configurable
 - [ ] Stores results to a mem cache
 - [ ] Demo includes more than one collection type

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="sQ9-gl-gBz">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Model DisplayerVC-->
+        <scene sceneID="4vb-eq-9bC">
+            <objects>
+                <viewController id="sQ9-gl-gBz" customClass="ModelDisplayerVC" customModule="api_collection" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qhD-qi-zP7"/>
+                        <viewControllerLayoutGuide type="bottom" id="GQN-B6-our"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6Hd-kC-iWq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="21G-0N-O1c">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="21G-0N-O1c" secondAttribute="trailing" id="7cK-Hi-lUN"/>
+                            <constraint firstItem="GQN-B6-our" firstAttribute="top" secondItem="21G-0N-O1c" secondAttribute="bottom" id="FUB-tx-33P"/>
+                            <constraint firstItem="21G-0N-O1c" firstAttribute="top" secondItem="qhD-qi-zP7" secondAttribute="bottom" id="muE-rH-2GH"/>
+                            <constraint firstItem="21G-0N-O1c" firstAttribute="leading" secondItem="6Hd-kC-iWq" secondAttribute="leading" id="zPU-04-ZdQ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ByX-yE-ofh"/>
+                    <connections>
+                        <outlet property="textView" destination="21G-0N-O1c" id="NUa-Ir-D4o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rZo-nY-uAK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="636" y="292"/>
+        </scene>
+    </scenes>
+</document>
