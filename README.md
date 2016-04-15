@@ -14,6 +14,7 @@ Swift offers some challenges for a project like this, at least for someone not u
 * no block equality -- The intentional lack of block equality in swift makes it difficult to have subscriber lists that contain only functions, so there's a handler abstraction that I wouldn't otherwise have wanted.
 * Hashable protocol implementations ([PATs](https://www.youtube.com/watch?v=XWoNjiSPqI8)) -- since we want to deal with cache objects in the general case, but let everyone define equality for their models as they see fit.
 * "static stored properties not yet supported in generic types" -- challenging, because a memcache should absolutely have a static container of generic `Model` objects.
+* "cannot explicitly specialize a generic function" When I wanted my API instance to have a factory method returning collections with specialized types -- haven't solved this one, changed my call syntax :/
 
 ## Design Goals
 
@@ -33,3 +34,7 @@ Swift offers some challenges for a project like this, at least for someone not u
 
 ## Future
 - [ ] mem cache FIFO invalidatable
+
+## Cite
+
+Icons from [http://radesign.in](http://radesign.in)

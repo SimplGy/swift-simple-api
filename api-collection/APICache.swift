@@ -9,14 +9,13 @@
 import Foundation
 
 
-enum APICacheFreshness {
+enum CacheFreshness {
   case Old
   case Fresh
   case Uncertain
 }
 
 
-//public class APICache<ModelProtocol where ModelProtocol: APIModel> {
 public class APICache {
   
   // ------------------------------------------------- Static
@@ -35,15 +34,6 @@ public class APICache {
   
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
   // ------------------------------------------------- Instance
   private let definitelyOldTheshold:   NSTimeInterval = 60 * 60 * 48   // seconds. if it's older than this, the data can't possibly be any good
   private let definitelyFreshTheshold: NSTimeInterval = 10             // seconds. If it's younger than this, the data is almost certainly great
@@ -55,7 +45,7 @@ public class APICache {
   var definitelyOld:   Bool { return ageInSeconds > definitelyOldTheshold   }
   var definitelyFresh: Bool { return ageInSeconds < definitelyFreshTheshold }
   
-  var freshness: APICacheFreshness {
+  var freshness: CacheFreshness {
     print("ageInSeconds: \(Int(ageInSeconds))");
     if definitelyOld { return .Old }
     if definitelyFresh { return .Fresh }

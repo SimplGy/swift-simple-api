@@ -8,20 +8,20 @@
 
 import UIKit
 
-class PlacesTVC: UITableViewController {
-
+class BudapestTVC: UITableViewController {
+  
   @IBOutlet var metadata: UILabel!
   
-  // ADVANTAGE: underlying model type is obvious
-  let places = APICollection<Place>(url: "/textsearch/json?query=restaurants+in+Denver")
+  // ADVANTAGE: underlying model type and path key is obvious and defined by the consumer
+  var places = CollieCollection<Place>(path: "/textsearch/json?query=Restaurants+in+Budapest", api: APIs.googlePlaces) // TODO: I prefer the syntax `APIs.googlePlaces.makeCollection(path: "")`, but the generics are fighting me
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    navigationItem.title = "APICollection<Place>"
+    navigationItem.title = "CollieCollection<Place> (Budapest)"
     // ADVANTAGE: one call to set up fetch & observation
     // ADVANTAGE: error callback is optional
     // ADVANTAGE: don't need to make this view class a delegate
-    places.observe( APIHandler(onPlacesUpdated) )
+    places.observe( CollieHandler(onPlacesUpdated) )
     refreshControl = UIRefreshControl()
     refreshControl?.backgroundColor = UIColor.darkGrayColor()
     refreshControl?.tintColor = UIColor.whiteColor()
@@ -35,8 +35,8 @@ class PlacesTVC: UITableViewController {
     tableView.reloadData()
     metadata.text = "Count: \(results.count)"
   }
-
-
+  
+  
   func onPullToRefresh() {
     print("")
     print("onPullToRefresh")

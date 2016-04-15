@@ -6,23 +6,23 @@
 //  Copyright © 2016 Simple Guy. All rights reserved.
 //
 
+
+
+
+
+
+
+
+
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
-
+  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    
-//    APIConfig.rootUrl = "https://waitress-live.appspot.com"
-//    APIConfig.headers["Accept"] = "application/vnd.waitress.v5+json"
-    
-    APIConfig.rootUrl = "https://maps.googleapis.com/maps/api/place"
-    APIConfig.topLevelKey = "results"
-    APIConfig.queryParams.append(NSURLQueryItem(name: "key", value: "AIzaSyAp_K45jvW741bDwypZsXocpeBKDxmEyjY"))
-    
+    window?.tintColor = UIColor(red: 150/255, green: 186/255, blue: 238/255, alpha: 1)    
     return true
   }
 

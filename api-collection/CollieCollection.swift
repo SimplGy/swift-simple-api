@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Common behaviors for working with sets of API Models
-class APICollection<ModelProtocol where ModelProtocol: APIModel> {
+class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   
   var pendingOperations = 0 // { didSet { print("pendingOperations: \(pendingOperations)") }}
   var thinking: Bool { return pendingOperations > 0 }
@@ -19,7 +19,7 @@ class APICollection<ModelProtocol where ModelProtocol: APIModel> {
   // var beforeSave = [] // an array of things to do to the object before sending it to the server. client -> server
   
   // TODO: arrray of weak subscriber references
-  typealias Handler = APIHandler<ModelProtocol>
+  typealias Handler = CollieHandler<ModelProtocol>
   var subscribers = Set<Handler>()
   
   /// Timestamped memcache
@@ -36,16 +36,18 @@ class APICollection<ModelProtocol where ModelProtocol: APIModel> {
 //  }
   var cache: APICache { return APICache.get(fullUrl) }
   
-  let url: String
-  private var fullUrl: String { return APIConfig.rootUrl + self.url }
+  let api: CollieAPI
+  let path: String
+  private var fullUrl: String { return api.rootURL + self.path }
   
   /**
    Create a collection instance
-   
    - parameter url: The url to fetch the collection from. Will be appended to APIConfig.rootUrl, if present
+   - parameter api: An instance of a CollieAPI, so that we know what endpoint and config to work with
    */
-  init(url: String) {
-    self.url = url
+  init(path: String, api: CollieAPI) {
+    self.path = path
+    self.api = api
   }
   
   
@@ -100,14 +102,12 @@ class APICollection<ModelProtocol where ModelProtocol: APIModel> {
   func getCollection(urlString: String, success: ([NSDictionary])->()) {
     
     guard let urlComponents = NSURLComponents(string: urlString) else { return print("Couldn't create url: \(urlString)") }
-    urlComponents.queryItems = (urlComponents.queryItems ?? []) + APIConfig.queryParams
-    print(urlComponents.queryItems)
-    
+    urlComponents.queryItems = (urlComponents.queryItems ?? []) + api.queryParams
     guard let url = urlComponents.URL else { return print("Couldn't get NSURL from NSURLComponents: \(urlComponents)") }
     let request = NSMutableURLRequest(URL: url)
     request.HTTPMethod = "GET"
-    request.timeoutInterval = APIConfig.timeout
-    for (key, val) in APIConfig.headers {
+    request.timeoutInterval = api.timeout
+    for (key, val) in api.headers {
       request.setValue(val, forHTTPHeaderField: key)
     }
     
@@ -166,10 +166,10 @@ class APICollection<ModelProtocol where ModelProtocol: APIModel> {
     let anyObj = try NSJSONSerialization.JSONObjectWithData(data, options: []) // let this error bubble up
     if let json = anyObj as? [NSDictionary] {
       return json
-    } else if let key = APIConfig.topLevelKey, outer = anyObj as? NSDictionary, json = outer[key] as? [NSDictionary] {
+    } else if let key = api.topLevelKey, outer = anyObj as? NSDictionary, json = outer[key] as? [NSDictionary] {
       return json
     }
-    throw APIErrors.CantParseDictionaryArray
+    throw CollieErrors.CantParseDictionaryArray
   }
   
   private func got(response: [NSDictionary]) {

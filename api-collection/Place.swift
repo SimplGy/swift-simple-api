@@ -5,7 +5,7 @@ func ==(lhs: Place, rhs: Place) -> Bool {
   return lhs.hashValue == rhs.hashValue
 }
 
-class Place: APIModel, CustomStringConvertible {
+class Place: CollieModel, CustomStringConvertible {
   
   // static var cache = APICache<Place>() // requires that I make `Place` a `final` class
   
@@ -22,15 +22,22 @@ class Place: APIModel, CustomStringConvertible {
   }
   
   required init?(json: NSDictionary) {
-    guard let id = json["place_id"] as? String else {
+
+    // If it fits your use case, you can design your client models to accept multiple server JSON formats
+    // our id could be in place_id as a string, or in id as an Int
+    let googlePlaceId = json["place_id"] as? String
+    let waitressId = json["id"] as? Int
+    if googlePlaceId == nil && waitressId == nil {
       print("Failed to init id from json: \(json)")
       return nil
     }
-    guard let name = json["name"] as? String else {
+    // our name could be in name as a string or as an array of names by language
+    guard let name = (json["name"] as? String) ?? (json["name"] as? [String])?[safe: 0] else {
       print("Failed to init name from json: \(json)")
       return nil
     }
-    self.id = id
+    
+    self.id = googlePlaceId ?? String(waitressId)
     self.name = name
     self.rating = json["rating"] as? Double
     self.thumbnailUrl = json["icon"] as? String
@@ -38,7 +45,7 @@ class Place: APIModel, CustomStringConvertible {
   
   func toJSON() -> NSDictionary {
     let json = NSMutableDictionary()
-    json.setObject(id, forKey: "place_id")
+    json.setObject(id, forKey: "id")
     json.setObject(name, forKey: "name")
     if let rating = rating { json.setObject(rating, forKey: "rating") }
     if let thumbnailUrl = thumbnailUrl { json.setObject(thumbnailUrl, forKey: "icon") }

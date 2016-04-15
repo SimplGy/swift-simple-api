@@ -8,41 +8,61 @@
 
 /* Begin PBXBuildFile section */
 		0706C9911CC04E6A000A11FF /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9901CC04E6A000A11FF /* Array+.swift */; };
+		0706C9951CC06B04000A11FF /* DenverTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C9941CC06B04000A11FF /* DenverTVC.storyboard */; };
+		0706C99A1CC07116000A11FF /* DenverTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9991CC07116000A11FF /* DenverTVC.swift */; };
+		0706C99C1CC07126000A11FF /* BudapestTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C99B1CC07126000A11FF /* BudapestTVC.storyboard */; };
+		0706C99F1CC0736D000A11FF /* StarWarsTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C99E1CC0736D000A11FF /* StarWarsTVC.storyboard */; };
+		0706C9A11CC07379000A11FF /* StarWarsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9A01CC07379000A11FF /* StarWarsTVC.swift */; };
+		0706C9A31CC0739C000A11FF /* StarWarsPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9A21CC0739C000A11FF /* StarWarsPerson.swift */; };
+		0706C9A61CC0763B000A11FF /* APIModelDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9A51CC0763B000A11FF /* APIModelDetailsVC.swift */; };
+		0706C9A81CC07646000A11FF /* APIModelDetailsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C9A71CC07646000A11FF /* APIModelDetailsVC.storyboard */; };
+		0706C9AB1CC099EE000A11FF /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AA1CC099EE000A11FF /* APIs.swift */; };
+		0706C9AD1CC09AA3000A11FF /* CollieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AC1CC09AA3000A11FF /* CollieAPI.swift */; };
+		0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AF1CC0A5E4000A11FF /* StockholmTVC.swift */; };
+		0706C9B21CC0A60F000A11FF /* StockholmTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */; };
 		0745494A1CBEB5D30083A2EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549491CBEB5D30083A2EC /* AppDelegate.swift */; };
-		0745494F1CBEB5D30083A2EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0745494D1CBEB5D30083A2EC /* Main.storyboard */; };
+		0745494F1CBEB5D30083A2EC /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0745494D1CBEB5D30083A2EC /* Root.storyboard */; };
 		074549511CBEB5D30083A2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074549501CBEB5D30083A2EC /* Assets.xcassets */; };
 		074549541CBEB5D30083A2EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074549521CBEB5D30083A2EC /* LaunchScreen.storyboard */; };
-		074549601CBEB64F0083A2EC /* APICollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745495D1CBEB64F0083A2EC /* APICollection.swift */; };
-		074549611CBEB64F0083A2EC /* APIHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745495E1CBEB64F0083A2EC /* APIHandler.swift */; };
+		074549601CBEB64F0083A2EC /* CollieCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745495D1CBEB64F0083A2EC /* CollieCollection.swift */; };
+		074549611CBEB64F0083A2EC /* CollieHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745495E1CBEB64F0083A2EC /* CollieHandler.swift */; };
 		074549621CBEB64F0083A2EC /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745495F1CBEB64F0083A2EC /* Place.swift */; };
-		074549641CBEB6600083A2EC /* PlacesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549631CBEB6600083A2EC /* PlacesTVC.swift */; };
-		074549671CBEB8F70083A2EC /* APIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549661CBEB8F70083A2EC /* APIModel.swift */; };
-		074549691CBEBB750083A2EC /* APIInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549681CBEBB750083A2EC /* APIInterface.swift */; };
-		0745496B1CBEBFAB0083A2EC /* APIErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745496A1CBEBFAB0083A2EC /* APIErrors.swift */; };
+		074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549631CBEB6600083A2EC /* BudapestTVC.swift */; };
+		074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549661CBEB8F70083A2EC /* CollieModel.swift */; };
+		0745496B1CBEBFAB0083A2EC /* CollieErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */; };
 		07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */; };
 		07D480021CBF4A5700693ADF /* PlaceDisplayerVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */; };
-		07D480041CBF504000693ADF /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D480031CBF504000693ADF /* APIConfig.swift */; };
 		07D480061CC0113900693ADF /* APICache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D480051CC0113900693ADF /* APICache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0706C9901CC04E6A000A11FF /* Array+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
+		0706C9941CC06B04000A11FF /* DenverTVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DenverTVC.storyboard; sourceTree = "<group>"; };
+		0706C9991CC07116000A11FF /* DenverTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DenverTVC.swift; sourceTree = "<group>"; };
+		0706C99B1CC07126000A11FF /* BudapestTVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BudapestTVC.storyboard; sourceTree = "<group>"; };
+		0706C99E1CC0736D000A11FF /* StarWarsTVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StarWarsTVC.storyboard; sourceTree = "<group>"; };
+		0706C9A01CC07379000A11FF /* StarWarsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsTVC.swift; sourceTree = "<group>"; };
+		0706C9A21CC0739C000A11FF /* StarWarsPerson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StarWarsPerson.swift; sourceTree = "<group>"; };
+		0706C9A51CC0763B000A11FF /* APIModelDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIModelDetailsVC.swift; sourceTree = "<group>"; };
+		0706C9A71CC07646000A11FF /* APIModelDetailsVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = APIModelDetailsVC.storyboard; sourceTree = "<group>"; };
+		0706C9AA1CC099EE000A11FF /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
+		0706C9AC1CC09AA3000A11FF /* CollieAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieAPI.swift; sourceTree = "<group>"; };
+		0706C9AF1CC0A5E4000A11FF /* StockholmTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockholmTVC.swift; sourceTree = "<group>"; };
+		0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StockholmTVC.storyboard; sourceTree = "<group>"; };
 		074549461CBEB5D30083A2EC /* api-collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "api-collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		074549491CBEB5D30083A2EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0745494E1CBEB5D30083A2EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0745494E1CBEB5D30083A2EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
 		074549501CBEB5D30083A2EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		074549531CBEB5D30083A2EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074549551CBEB5D30083A2EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0745495D1CBEB64F0083A2EC /* APICollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICollection.swift; sourceTree = "<group>"; };
-		0745495E1CBEB64F0083A2EC /* APIHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIHandler.swift; sourceTree = "<group>"; };
+		0745495D1CBEB64F0083A2EC /* CollieCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieCollection.swift; sourceTree = "<group>"; };
+		0745495E1CBEB64F0083A2EC /* CollieHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieHandler.swift; sourceTree = "<group>"; };
 		0745495F1CBEB64F0083A2EC /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		074549631CBEB6600083A2EC /* PlacesTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlacesTVC.swift; sourceTree = "<group>"; };
-		074549661CBEB8F70083A2EC /* APIModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIModel.swift; sourceTree = "<group>"; };
-		074549681CBEBB750083A2EC /* APIInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIInterface.swift; sourceTree = "<group>"; };
-		0745496A1CBEBFAB0083A2EC /* APIErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIErrors.swift; sourceTree = "<group>"; };
+		074549631CBEB6600083A2EC /* BudapestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudapestTVC.swift; sourceTree = "<group>"; };
+		074549661CBEB8F70083A2EC /* CollieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieModel.swift; sourceTree = "<group>"; };
+		0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieErrors.swift; sourceTree = "<group>"; };
 		07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDisplayerVC.swift; sourceTree = "<group>"; };
 		07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlaceDisplayerVC.storyboard; sourceTree = "<group>"; };
-		07D480031CBF504000693ADF /* APIConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 		07D480051CC0113900693ADF /* APICache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,11 +80,78 @@
 		0706C98F1CC03FA3000A11FF /* pages */ = {
 			isa = PBXGroup;
 			children = (
-				074549631CBEB6600083A2EC /* PlacesTVC.swift */,
+				0745494D1CBEB5D30083A2EC /* Root.storyboard */,
+				0706C9AE1CC0A5C9000A11FF /* Stockholm */,
+				0706C99D1CC07358000A11FF /* Star Wars */,
+				0706C9961CC06EAB000A11FF /* Budapest */,
+				0706C9921CC06ACF000A11FF /* Denver */,
+				0706C9A41CC0761B000A11FF /* StarWarsPerson Details */,
+				0706C9931CC06AEB000A11FF /* Place Details */,
+			);
+			name = pages;
+			sourceTree = "<group>";
+		};
+		0706C9921CC06ACF000A11FF /* Denver */ = {
+			isa = PBXGroup;
+			children = (
+				0706C9991CC07116000A11FF /* DenverTVC.swift */,
+				0706C9941CC06B04000A11FF /* DenverTVC.storyboard */,
+			);
+			name = Denver;
+			sourceTree = "<group>";
+		};
+		0706C9931CC06AEB000A11FF /* Place Details */ = {
+			isa = PBXGroup;
+			children = (
 				07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */,
 				07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */,
 			);
-			name = pages;
+			name = "Place Details";
+			sourceTree = "<group>";
+		};
+		0706C9961CC06EAB000A11FF /* Budapest */ = {
+			isa = PBXGroup;
+			children = (
+				074549631CBEB6600083A2EC /* BudapestTVC.swift */,
+				0706C99B1CC07126000A11FF /* BudapestTVC.storyboard */,
+			);
+			name = Budapest;
+			sourceTree = "<group>";
+		};
+		0706C99D1CC07358000A11FF /* Star Wars */ = {
+			isa = PBXGroup;
+			children = (
+				0706C99E1CC0736D000A11FF /* StarWarsTVC.storyboard */,
+				0706C9A01CC07379000A11FF /* StarWarsTVC.swift */,
+			);
+			name = "Star Wars";
+			sourceTree = "<group>";
+		};
+		0706C9A41CC0761B000A11FF /* StarWarsPerson Details */ = {
+			isa = PBXGroup;
+			children = (
+				0706C9A51CC0763B000A11FF /* APIModelDetailsVC.swift */,
+				0706C9A71CC07646000A11FF /* APIModelDetailsVC.storyboard */,
+			);
+			name = "StarWarsPerson Details";
+			sourceTree = "<group>";
+		};
+		0706C9A91CC0977E000A11FF /* demo-app */ = {
+			isa = PBXGroup;
+			children = (
+				0745496C1CBEC1490083A2EC /* models */,
+				0745495B1CBEB63D0083A2EC /* core */,
+			);
+			name = "demo-app";
+			sourceTree = "<group>";
+		};
+		0706C9AE1CC0A5C9000A11FF /* Stockholm */ = {
+			isa = PBXGroup;
+			children = (
+				0706C9AF1CC0A5E4000A11FF /* StockholmTVC.swift */,
+				0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */,
+			);
+			name = Stockholm;
 			sourceTree = "<group>";
 		};
 		0745493D1CBEB5D30083A2EC = {
@@ -86,9 +173,13 @@
 		074549481CBEB5D30083A2EC /* api-collection */ = {
 			isa = PBXGroup;
 			children = (
-				074549651CBEB8E20083A2EC /* lib */,
-				0745495C1CBEB6430083A2EC /* common */,
-				0745495B1CBEB63D0083A2EC /* core */,
+				0706C9AC1CC09AA3000A11FF /* CollieAPI.swift */,
+				0745495D1CBEB64F0083A2EC /* CollieCollection.swift */,
+				074549661CBEB8F70083A2EC /* CollieModel.swift */,
+				0745495E1CBEB64F0083A2EC /* CollieHandler.swift */,
+				0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */,
+				074549651CBEB8E20083A2EC /* vendor */,
+				0706C9A91CC0977E000A11FF /* demo-app */,
 			);
 			path = "api-collection";
 			sourceTree = "<group>";
@@ -99,40 +190,27 @@
 				0706C98F1CC03FA3000A11FF /* pages */,
 				074549491CBEB5D30083A2EC /* AppDelegate.swift */,
 				074549551CBEB5D30083A2EC /* Info.plist */,
-				0745494D1CBEB5D30083A2EC /* Main.storyboard */,
 				074549501CBEB5D30083A2EC /* Assets.xcassets */,
 				074549521CBEB5D30083A2EC /* LaunchScreen.storyboard */,
+				0706C9AA1CC099EE000A11FF /* APIs.swift */,
 			);
 			name = core;
 			sourceTree = "<group>";
 		};
-		0745495C1CBEB6430083A2EC /* common */ = {
+		074549651CBEB8E20083A2EC /* vendor */ = {
 			isa = PBXGroup;
 			children = (
-				0745496C1CBEC1490083A2EC /* models */,
-			);
-			name = common;
-			sourceTree = "<group>";
-		};
-		074549651CBEB8E20083A2EC /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				074549661CBEB8F70083A2EC /* APIModel.swift */,
-				0745495E1CBEB64F0083A2EC /* APIHandler.swift */,
-				0745495D1CBEB64F0083A2EC /* APICollection.swift */,
-				074549681CBEBB750083A2EC /* APIInterface.swift */,
-				0745496A1CBEBFAB0083A2EC /* APIErrors.swift */,
-				07D480031CBF504000693ADF /* APIConfig.swift */,
 				07D480051CC0113900693ADF /* APICache.swift */,
 				0706C9901CC04E6A000A11FF /* Array+.swift */,
 			);
-			name = lib;
+			name = vendor;
 			sourceTree = "<group>";
 		};
 		0745496C1CBEC1490083A2EC /* models */ = {
 			isa = PBXGroup;
 			children = (
 				0745495F1CBEB64F0083A2EC /* Place.swift */,
+				0706C9A21CC0739C000A11FF /* StarWarsPerson.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -195,10 +273,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0706C99C1CC07126000A11FF /* BudapestTVC.storyboard in Resources */,
 				074549541CBEB5D30083A2EC /* LaunchScreen.storyboard in Resources */,
 				07D480021CBF4A5700693ADF /* PlaceDisplayerVC.storyboard in Resources */,
+				0706C9951CC06B04000A11FF /* DenverTVC.storyboard in Resources */,
 				074549511CBEB5D30083A2EC /* Assets.xcassets in Resources */,
-				0745494F1CBEB5D30083A2EC /* Main.storyboard in Resources */,
+				0706C99F1CC0736D000A11FF /* StarWarsTVC.storyboard in Resources */,
+				0706C9B21CC0A60F000A11FF /* StockholmTVC.storyboard in Resources */,
+				0706C9A81CC07646000A11FF /* APIModelDetailsVC.storyboard in Resources */,
+				0745494F1CBEB5D30083A2EC /* Root.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,30 +292,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				074549611CBEB64F0083A2EC /* APIHandler.swift in Sources */,
+				074549611CBEB64F0083A2EC /* CollieHandler.swift in Sources */,
 				0706C9911CC04E6A000A11FF /* Array+.swift in Sources */,
-				0745496B1CBEBFAB0083A2EC /* APIErrors.swift in Sources */,
+				0706C9A11CC07379000A11FF /* StarWarsTVC.swift in Sources */,
+				0745496B1CBEBFAB0083A2EC /* CollieErrors.swift in Sources */,
+				0706C9A31CC0739C000A11FF /* StarWarsPerson.swift in Sources */,
+				0706C9A61CC0763B000A11FF /* APIModelDetailsVC.swift in Sources */,
 				07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */,
 				07D480061CC0113900693ADF /* APICache.swift in Sources */,
-				074549601CBEB64F0083A2EC /* APICollection.swift in Sources */,
-				07D480041CBF504000693ADF /* APIConfig.swift in Sources */,
-				074549691CBEBB750083A2EC /* APIInterface.swift in Sources */,
+				0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */,
+				074549601CBEB64F0083A2EC /* CollieCollection.swift in Sources */,
+				0706C9AD1CC09AA3000A11FF /* CollieAPI.swift in Sources */,
+				0706C99A1CC07116000A11FF /* DenverTVC.swift in Sources */,
 				0745494A1CBEB5D30083A2EC /* AppDelegate.swift in Sources */,
 				074549621CBEB64F0083A2EC /* Place.swift in Sources */,
-				074549671CBEB8F70083A2EC /* APIModel.swift in Sources */,
-				074549641CBEB6600083A2EC /* PlacesTVC.swift in Sources */,
+				074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */,
+				0706C9AB1CC099EE000A11FF /* APIs.swift in Sources */,
+				074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0745494D1CBEB5D30083A2EC /* Main.storyboard */ = {
+		0745494D1CBEB5D30083A2EC /* Root.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0745494E1CBEB5D30083A2EC /* Base */,
 			);
-			name = Main.storyboard;
+			name = Root.storyboard;
 			sourceTree = "<group>";
 		};
 		074549521CBEB5D30083A2EC /* LaunchScreen.storyboard */ = {

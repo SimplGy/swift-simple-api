@@ -9,6 +9,6 @@
 import Foundation
 
 
-enum APIErrors: ErrorType {
+enum CollieErrors: ErrorType {
   case CantParseDictionaryArray
 }
