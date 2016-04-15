@@ -97,8 +97,13 @@ class APICollection<ModelProtocol where ModelProtocol: APIModel> {
   }
   
   // TODO: move to APIEndpoint or similar facade
-  func getCollection(url: String, success: ([NSDictionary])->()) {
-    guard let url = NSURL(string: url) else { return print("Couldn't create url: \(APIConfig.rootUrl + self.url)") }
+  func getCollection(urlString: String, success: ([NSDictionary])->()) {
+    
+    guard let urlComponents = NSURLComponents(string: urlString) else { return print("Couldn't create url: \(urlString)") }
+    urlComponents.queryItems = (urlComponents.queryItems ?? []) + APIConfig.queryParams
+    print(urlComponents.queryItems)
+    
+    guard let url = urlComponents.URL else { return print("Couldn't get NSURL from NSURLComponents: \(urlComponents)") }
     let request = NSMutableURLRequest(URL: url)
     request.HTTPMethod = "GET"
     request.timeoutInterval = APIConfig.timeout
@@ -159,8 +164,12 @@ class APICollection<ModelProtocol where ModelProtocol: APIModel> {
   // ----------------------------- MARK: Private
   private func dictionaryFromData(data: NSData) throws -> [NSDictionary] {
     let anyObj = try NSJSONSerialization.JSONObjectWithData(data, options: []) // let this error bubble up
-    guard let json = anyObj as? [NSDictionary] else { throw APIErrors.CantParseDictionaryArray }
-    return json
+    if let json = anyObj as? [NSDictionary] {
+      return json
+    } else if let key = APIConfig.topLevelKey, outer = anyObj as? NSDictionary, json = outer[key] as? [NSDictionary] {
+      return json
+    }
+    throw APIErrors.CantParseDictionaryArray
   }
   
   private func got(response: [NSDictionary]) {

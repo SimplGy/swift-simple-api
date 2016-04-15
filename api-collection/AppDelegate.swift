@@ -16,8 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    APIConfig.rootUrl = "https://waitress-live.appspot.com"
-    APIConfig.headers["Accept"] = "application/vnd.waitress.v5+json"
+//    APIConfig.rootUrl = "https://waitress-live.appspot.com"
+//    APIConfig.headers["Accept"] = "application/vnd.waitress.v5+json"
+    
+    APIConfig.rootUrl = "https://maps.googleapis.com/maps/api/place"
+    APIConfig.topLevelKey = "results"
+    APIConfig.queryParams.append(NSURLQueryItem(name: "key", value: "AIzaSyAp_K45jvW741bDwypZsXocpeBKDxmEyjY"))
     
     return true
   }

@@ -9,7 +9,8 @@ struct APIConfig {
   /// Default values. Override these or add to them in didFinishLaunchingWithOptions. eg:
   /// APIConfig.rootUrl = "https://api.simple.gy"
   /// APIConfig.timeout = 3.0
-  /// APIConfig.headers["Accept"] = "something-else"
+  /// APIConfig.headers["Accept"] = "anything-you-say-dear"
+  /// APIConfig.queryParams.append(NSURLQueryItem(name: "key", value: "YOUR-API-KEY"))
   
   
   /// The root of your api. No trailing slash, please.
@@ -20,7 +21,12 @@ struct APIConfig {
   /// KVP of headers to add to every request
   static var headers: [String: String] = [
     "Content-Type": "application/json"
-    // "Accept": "application/vnd.waitress.v5+json"
   ]
+  
+  /// KVP of url params to add to every request
+  static var queryParams = [NSURLQueryItem]()
+
+  /// Some apis respond with an object with a key that contains an array of actual results. This string lets you specify that
+  static var topLevelKey: String?
 
 }

@@ -26,10 +26,10 @@ Swift offers some challenges for a project like this, at least for someone not u
 - [x] Demo supports showing model.toJSON() for each item
 - [x] API is configurable
 - [x] Stores results to a mem cache
+- [x] Support global url params eg: api's API keys: `https://maps.googleapis.com/...&key=YOUR_API_KEY`
 - [ ] Stores results to a disk cache
 - [ ] Demo includes more than one collection type
 - [ ] Single object gets are supported
 
 ## Future
-
 - [ ] mem cache FIFO invalidatable

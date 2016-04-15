@@ -13,8 +13,8 @@ class PlacesTVC: UITableViewController {
   @IBOutlet var metadata: UILabel!
   
   // ADVANTAGE: underlying model type is obvious
-  let places = APICollection<Place>(url: "/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000")
-
+  let places = APICollection<Place>(url: "/textsearch/json?query=restaurants+in+Denver")
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.title = "APICollection<Place>"
@@ -52,9 +52,11 @@ class PlacesTVC: UITableViewController {
   }
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("LeftDetailCell", forIndexPath: indexPath)
-    let place = places.latest[safe: indexPath.row]
-    cell.textLabel?.text = "[\(place?.id ?? -1)]"
-    cell.detailTextLabel?.text = place?.name
+    if let place = places.latest[safe: indexPath.row] {
+      let shortId = "\(place.id)".substringToIndex("\(place.id)".startIndex.advancedBy(8)) // This syntax...
+      cell.textLabel?.text = "[\(shortId)]"
+      cell.detailTextLabel?.text = "\(place.name) rating: \(place.rating ?? -1)"
+    }
     return cell
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
