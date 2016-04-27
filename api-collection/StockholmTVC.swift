@@ -24,7 +24,7 @@ class StockholmTVC: UITableViewController {
     refreshControl = UIRefreshControl()
     refreshControl?.backgroundColor = UIColor.darkGrayColor()
     refreshControl?.tintColor = UIColor.whiteColor()
-    refreshControl?.addTarget(self, action: "onPullToRefresh", forControlEvents: .ValueChanged)
+    refreshControl?.addTarget(self, action: #selector(onPullToRefresh), forControlEvents: .ValueChanged)
   }
   
   
@@ -52,9 +52,8 @@ class StockholmTVC: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("LeftDetailCell", forIndexPath: indexPath)
     if let place = places.latest[safe: indexPath.row] {
-      let shortId = "\(place.id)".substringToIndex("\(place.id)".startIndex.advancedBy(8)) // This syntax...
-      cell.textLabel?.text = "[\(shortId)]"
-      cell.detailTextLabel?.text = "\(place.name) rating: \(place.rating ?? -1)"
+      cell.textLabel?.text = "[\(place.id)]"
+      cell.detailTextLabel?.text = "\(place.name)"
     }
     return cell
   }

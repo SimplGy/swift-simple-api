@@ -25,7 +25,7 @@ class DenverTVC: UITableViewController {
     refreshControl = UIRefreshControl()
     refreshControl?.backgroundColor = UIColor.darkGrayColor()
     refreshControl?.tintColor = UIColor.whiteColor()
-    refreshControl?.addTarget(self, action: "onPullToRefresh", forControlEvents: .ValueChanged)
+    refreshControl?.addTarget(self, action: #selector(onPullToRefresh), forControlEvents: .ValueChanged)
   }
   
   

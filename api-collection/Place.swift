@@ -37,7 +37,7 @@ class Place: CollieModel, CustomStringConvertible {
       return nil
     }
     
-    self.id = googlePlaceId ?? String(waitressId)
+    self.id = googlePlaceId ?? String(waitressId ?? -1)
     self.name = name
     self.rating = json["rating"] as? Double
     self.thumbnailUrl = json["icon"] as? String

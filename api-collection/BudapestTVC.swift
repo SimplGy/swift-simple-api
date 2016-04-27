@@ -21,12 +21,14 @@ class BudapestTVC: UITableViewController {
     // ADVANTAGE: one call to set up fetch & observation
     // ADVANTAGE: error callback is optional
     // ADVANTAGE: don't need to make this view class a delegate
+    // ADVANTAGE: call your callback anything you like
     places.observe( CollieHandler(onPlacesUpdated) )
     refreshControl = UIRefreshControl()
     refreshControl?.backgroundColor = UIColor.darkGrayColor()
     refreshControl?.tintColor = UIColor.whiteColor()
-    refreshControl?.addTarget(self, action: "onPullToRefresh", forControlEvents: .ValueChanged)
+    refreshControl?.addTarget(self, action: #selector(onPullToRefresh), forControlEvents: .ValueChanged)
   }
+  
   
   
   // --------------------------------------------------- MARK: APIHandler
@@ -45,6 +47,8 @@ class BudapestTVC: UITableViewController {
       self.refreshControl?.endRefreshing()
     }
   }
+  
+  
   
   // --------------------------------------------------- MARK: UITableViewController
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
