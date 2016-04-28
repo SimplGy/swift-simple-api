@@ -5,12 +5,12 @@
 import Foundation
 
 
- /**
+/**
  *  This is the base model protocol for objects that CollieAPI works with
  *  You should be able to init each one from json, and serialize it back to json
- *  TODO: per-object caching means you must also implement Hashable and Equatable so we can find and update cache locations
+ *  per-object caching means you must also implement Hashable and Equatable so we can find and update cache locations
  */
-public protocol CollieModel: Hashable {
+public protocol CollieModel: Mappable, Hashable, CustomStringConvertible {
   
   /**
    json -> swift object
@@ -18,28 +18,30 @@ public protocol CollieModel: Hashable {
    - parameter json: Dictionary of values.
    - returns: Typed swift model object. If you don't get valid json, return nil
    */
-  init?(json: NSDictionary)
+  //init?(json: NSDictionary)
   
   /**
    Convert the object into a json representation
    - returns: NSDictionary representing the json
    */
-  func toJSON() -> NSDictionary
+  //func toJSON() -> NSDictionary
   
 }
 
-
 extension CollieModel {
-
+  
+  /// Default description is just the JSON data
+  var description: String { return self.toJSONString(true) ?? "{..}" }
+  
   /**
    This is the default implementation of value equality for models.
-   Converting to json for comparison is expensive, but thorough.
+   It converts to json for comparison. This is expensive, but thorough.
    If you have a faster way feel free to override it.
    - parameter otherModel: Another homogenous model to compare to
    - returns: true if every property is the same between both models
    */
   func sameValueAs<T: CollieModel>(otherModel: T) -> Bool {
-    return self.toJSON() == otherModel.toJSON()
+    return self.toJSONString() == otherModel.toJSONString()
   }
   
 }

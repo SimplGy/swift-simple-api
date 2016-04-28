@@ -46,7 +46,7 @@ public class APICache {
   var definitelyFresh: Bool { return ageInSeconds < definitelyFreshTheshold }
   
   var freshness: CacheFreshness {
-    print("ageInSeconds: \(Int(ageInSeconds))");
+    print("ageInSeconds: \( lastUpdate.timeIntervalSince1970 == 0 ? "Not Cached" : String(Int(ageInSeconds)) )")
     if definitelyOld { return .Old }
     if definitelyFresh { return .Fresh }
     return .Uncertain

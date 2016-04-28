@@ -10,5 +10,5 @@ import Foundation
 
 
 enum CollieErrors: ErrorType {
-  case CantParseDictionaryArray
+  case CantParseNSDataToJsonDictionary
 }

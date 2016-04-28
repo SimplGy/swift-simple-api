@@ -55,14 +55,20 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   // ----------------------------- MARK: General API
   
   /**
+   Watch for future changes, and prompt a check for the latest changes, too.
+   - parameter handler: A wrapper around the handler methods you want to implement for the observation
+   */
+  func observe(handler: Handler) {
+    subscribers.insert(handler)
+    get()
+  }
+  
+  /**
   Get the most recent value.
   No observation is set up.
-  
   - parameter id:    id of the specific object to get. If nil, gets the whole collection
   - parameter force: If true, ignore normal cache rules and assume the local copy is no good. Still does lazy invalidiation though.
   */
-  //func get(id: Int? = nil, force: Bool = false) {}
-  
   func get(finally: (()->())? = nil) {
     
     print("")
@@ -70,13 +76,14 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
     switch cache.freshness {
       
     // The cache is definitely up-to-date, we can just use the memory copy and never ask the server
-    // TODO: better design to centralize storage to remove any chance of the instance/memory copy and the cache data getting out of sync
+    // Behavior: 
     case .Fresh:
       print(".Fresh")
       got(latest)
       finally?()
       
     // The cache data might be ok. Return the latest data but also query the server for updates
+    // Behavior: Lazy Invalidation
     case .Uncertain:
       print(".Uncertain")
       got(latest)
@@ -86,6 +93,7 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
       }
       
     // The cache is definitely old. Blank out current results and get new data
+    // Behavior: Greedy Invalidation
     case .Old:
       print(".Old")
       latest = []
@@ -99,7 +107,7 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   }
   
   // TODO: move to APIEndpoint or similar facade
-  func getCollection(urlString: String, success: ([NSDictionary])->()) {
+  func getCollection(urlString: String, success: ([CollieAPI.JSON])->()) {
     
     guard let urlComponents = NSURLComponents(string: urlString) else { return print("Couldn't create url: \(urlString)") }
     urlComponents.queryItems = (urlComponents.queryItems ?? []) + api.queryParams
@@ -112,13 +120,13 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
     }
     
     let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-      self.pendingOperations--
+      self.pendingOperations -= 1
       guard let data = data where error == nil else { return print("Networking error: \(error)") }
       guard let httpStatus = response as? NSHTTPURLResponse else { return print("Can't parse NSHTTPURLResponse") }
       guard httpStatus.statusCode == 200 else { return print("statusCode should be 200, but is \(httpStatus.statusCode). Response: \(response)") }
       
       do {
-        let json = try self.dictionaryFromData(data)
+        let json = try self.jsonFromData(data)
         self.cache.json = json
         success(json)
       } catch {
@@ -126,57 +134,34 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
       }
       
     }
-    pendingOperations++
+    pendingOperations += 1
     task.resume()
   }
+  
 
-  
-  
-  
-  
-  /**
-  Be notified of future changes, and trigger a request for the most recent value following normal cache rules.
-  
-  - parameter id: If present, observe a single item, else the whole collection
-  */
-//  func observe(id: Int? = nil) {}
-  
-  
-  
-  
-  
-  func observe(handler: Handler) {
-    subscribers.insert(handler)
-    get()
-  }
-  
-  /**
-   Remove the cache, broadcast an update of this change
-   
-   - parameter id: if present, invalidate a single id, else invalidate the whole colleciton
-   */
-  //func invalidate(id: Int?) {}
-
-  
-  
-  
   
   // ----------------------------- MARK: Private
-  private func dictionaryFromData(data: NSData) throws -> [NSDictionary] {
+  private func jsonFromData(data: NSData) throws -> [CollieAPI.JSON] {
     let anyObj = try NSJSONSerialization.JSONObjectWithData(data, options: []) // let this error bubble up
-    if let json = anyObj as? [NSDictionary] {
+    if let json = anyObj as? [CollieAPI.JSON] {
       return json
-    } else if let key = api.topLevelKey, outer = anyObj as? NSDictionary, json = outer[key] as? [NSDictionary] {
+    } else if let key = api.topLevelKey, outer = anyObj as? CollieAPI.JSON, json = outer[key] as? [CollieAPI.JSON] {
       return json
     }
-    throw CollieErrors.CantParseDictionaryArray
+    throw CollieErrors.CantParseNSDataToJsonDictionary
   }
   
-  private func got(response: [NSDictionary]) {
-    let parsedItems = response
-      .map    { ModelProtocol(json: $0) }
-      .filter { $0 != nil }
-      .map    { $0! }
+  /// Turn a dictionary response into a set of typed objects
+  private func got(jsonArray: [CollieAPI.JSON]) {
+    let parsedItems = Mapper<ModelProtocol>().mapArray(jsonArray) ?? []
+    
+    // TODO: figure out design for new 2-layer (mem and disk) cache
+    // TODO: safe to assume the order matches?
+    for (i, item) in parsedItems.enumerate() {
+      CollieCache.set("\(item.dynamicType)", key: String(item.hashValue), json: jsonArray[i])
+    }
+    CollieCache.log()
+
     got(parsedItems)
   }
   
@@ -201,8 +186,8 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
     }
     
     // Notify subscribers on main thread
-    dispatch_async(dispatch_get_main_queue()) {
-      //      self.cache.data = parsedItems
+    //dispatch_async(dispatch_get_main_queue()) {
+    Thread.UI {
       self.latest = items
       if identical { return print("identical items, not broadcasting") }
       self.subscribers.forEach { $0.onUpdate(items: items) }

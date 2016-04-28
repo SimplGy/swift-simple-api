@@ -19,7 +19,7 @@ class PlaceDisplayerVC: UIViewController {
     guard let model = model else { return }
     let json = model.toJSON()
     navigationItem.title = json["name"] as? String
-    textView.text = String( json )
+    textView.text = model.description
   }
   
 }

@@ -16,6 +16,45 @@ Swift offers some challenges for a project like this, at least for someone not u
 * "static stored properties not yet supported in generic types" -- challenging, because a memcache should absolutely have a static container of generic `Model` objects.
 * "cannot explicitly specialize a generic function" When I wanted my API instance to have a factory method returning collections with specialized types -- haven't solved this one, changed my call syntax :/
 
+## How does this work?
+
+API Buddy's goal is to provide you with strongly-typed model objects as fast as it can.
+
+You define rules about caching and invalidation, and it provides best-candidate objects to your application code.
+
+Because of this, API Buddy needs some things from you. Cheifly: all model objects must be `Equatable` and `Hashable`.
+
+Objects are hashed (and the cache is updated based on `hashValue`. This is also how you should define `==` for model objects. If the model object is equal, we update the cache.
+
+The other type of equality we need to know about is value equality. I implement a default value equality using the json representations of two objects. If they're different, we know there's been a real server change and we need to broadcast that there's an update.
+
+## Marketing Draft
+
+	> What's the quickest way to get from JSON to a model in Swift? API Buddy.
+	- unsubstantiated
+
+	> Hell hath no fury like a javascript programmer parsing JSON in a typed, un-nilable language
+	- scornful programmer
+
+  Not sure how to deal with Core Data?
+  Don't need migrations or anything complicated?
+	Don't know how to deal with cache in memory, on disk?
+	Tired of writing the same API interface and cache layer for every application you write?
+	
+	> The only hard things in computer science are caching and religion
+	- misquote
+	
+	API buddy is here for you.
+	
+	Define endpoints as collections of objects.
+	Set rules for when data is definitely fresh (don't even bother the server, wake the cell antenna, query the netork)
+	Set other rules for when it's definitely old (don't return that narsty old cache, report the data as blank and go ask the server)
+	Get updates on collections, subsets of collections, and individual objects like an RFP observable
+	Get one-time data like a callback
+	Get fail-protected one-time data as a syncronous optional
+
+
+
 ## Design Goals
 
 * Fewest steps to do common userland tasks (getting the latest value of a model, observing a collection for changes, creating a new type of collection, creating a new type of model)
@@ -29,7 +68,7 @@ Swift offers some challenges for a project like this, at least for someone not u
 - [x] Stores results to a mem cache
 - [x] Support global url params eg: api's API keys: `https://maps.googleapis.com/...&key=YOUR_API_KEY`
 - [ ] Stores results to a disk cache
-- [ ] Demo includes more than one collection type
+- [x] Demo includes more than one collection type
 - [ ] Single object gets are supported
 
 ## Future

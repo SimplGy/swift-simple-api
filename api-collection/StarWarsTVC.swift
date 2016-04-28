@@ -17,7 +17,7 @@ class StarWarsTVC: UITableViewController {
     refreshControl = UIRefreshControl()
     refreshControl?.backgroundColor = UIColor.darkGrayColor()
     refreshControl?.tintColor = UIColor.whiteColor()
-    refreshControl?.addTarget(self, action: "onPullToRefresh", forControlEvents: .ValueChanged)
+    refreshControl?.addTarget(self, action: #selector(onPullToRefresh), forControlEvents: .ValueChanged)
   }
   
   
@@ -32,7 +32,7 @@ class StarWarsTVC: UITableViewController {
     print("")
     print("onPullToRefresh")
     collie.get() {
-      // print("finally")
+      print("finally")
       self.refreshControl?.endRefreshing()
     }
   }
@@ -45,7 +45,7 @@ class StarWarsTVC: UITableViewController {
     let cell = tableView.dequeueReusableCellWithIdentifier("LeftDetailCell", forIndexPath: indexPath)
     if let model = collie.latest[safe: indexPath.row] {
       cell.textLabel?.text = model.name
-      cell.detailTextLabel?.text = "[\(model.id)]"
+      cell.detailTextLabel?.text = "\(model.id)"
     }
     return cell
   }

@@ -12,13 +12,7 @@ import Foundation
 /// Base class for your API endpoint and container for configuration
 class CollieAPI {
   
-  /// Default values. Override these or add to them in didFinishLaunchingWithOptions. eg:
-  /// APIConfig.rootUrl = "https://api.simple.gy"
-  /// APIConfig.timeout = 3.0
-  /// APIConfig.headers["Accept"] = "anything-you-say-dear"
-  /// APIConfig.queryParams.append(NSURLQueryItem(name: "key", value: "YOUR-API-KEY"))
-  
-  
+  typealias JSON = [String : AnyObject]
   
   /// The root of your api endpoint. No trailing slash, please.
   let rootURL: String

@@ -30,6 +30,23 @@
 		074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549631CBEB6600083A2EC /* BudapestTVC.swift */; };
 		074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549661CBEB8F70083A2EC /* CollieModel.swift */; };
 		0745496B1CBEBFAB0083A2EC /* CollieErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */; };
+		07B8D7C11CD123AF001EB05E /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7AF1CD123AF001EB05E /* FromJSON.swift */; };
+		07B8D7C21CD123AF001EB05E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B01CD123AF001EB05E /* Map.swift */; };
+		07B8D7C31CD123AF001EB05E /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B11CD123AF001EB05E /* Mappable.swift */; };
+		07B8D7C41CD123AF001EB05E /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B21CD123AF001EB05E /* Mapper.swift */; };
+		07B8D7C51CD123AF001EB05E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B31CD123AF001EB05E /* Operators.swift */; };
+		07B8D7C61CD123AF001EB05E /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B41CD123AF001EB05E /* ToJSON.swift */; };
+		07B8D7C81CD123AF001EB05E /* CustomDateFormatTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B81CD123AF001EB05E /* CustomDateFormatTransform.swift */; };
+		07B8D7C91CD123AF001EB05E /* DateFormatterTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B91CD123AF001EB05E /* DateFormatterTransform.swift */; };
+		07B8D7CA1CD123AF001EB05E /* DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7BA1CD123AF001EB05E /* DateTransform.swift */; };
+		07B8D7CB1CD123AF001EB05E /* EnumTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7BB1CD123AF001EB05E /* EnumTransform.swift */; };
+		07B8D7CC1CD123AF001EB05E /* ISO8601DateTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7BC1CD123AF001EB05E /* ISO8601DateTransform.swift */; };
+		07B8D7CD1CD123AF001EB05E /* NSDecimalNumberTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7BD1CD123AF001EB05E /* NSDecimalNumberTransform.swift */; };
+		07B8D7CE1CD123AF001EB05E /* TransformOf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7BE1CD123AF001EB05E /* TransformOf.swift */; };
+		07B8D7CF1CD123AF001EB05E /* TransformType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7BF1CD123AF001EB05E /* TransformType.swift */; };
+		07B8D7D01CD123AF001EB05E /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7C01CD123AF001EB05E /* URLTransform.swift */; };
+		07B8D7DE1CD153AF001EB05E /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7DD1CD153AF001EB05E /* Thread.swift */; };
+		07B8D7E01CD158AE001EB05E /* CollieCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7DF1CD158AE001EB05E /* CollieCache.swift */; };
 		07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */; };
 		07D480021CBF4A5700693ADF /* PlaceDisplayerVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */; };
 		07D480061CC0113900693ADF /* APICache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D480051CC0113900693ADF /* APICache.swift */; };
@@ -61,6 +78,24 @@
 		074549631CBEB6600083A2EC /* BudapestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudapestTVC.swift; sourceTree = "<group>"; };
 		074549661CBEB8F70083A2EC /* CollieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieModel.swift; sourceTree = "<group>"; };
 		0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieErrors.swift; sourceTree = "<group>"; };
+		07B8D7AF1CD123AF001EB05E /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
+		07B8D7B01CD123AF001EB05E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		07B8D7B11CD123AF001EB05E /* Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
+		07B8D7B21CD123AF001EB05E /* Mapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		07B8D7B31CD123AF001EB05E /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		07B8D7B41CD123AF001EB05E /* ToJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToJSON.swift; sourceTree = "<group>"; };
+		07B8D7B61CD123AF001EB05E /* ObjectMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectMapper.h; sourceTree = "<group>"; };
+		07B8D7B81CD123AF001EB05E /* CustomDateFormatTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDateFormatTransform.swift; sourceTree = "<group>"; };
+		07B8D7B91CD123AF001EB05E /* DateFormatterTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatterTransform.swift; sourceTree = "<group>"; };
+		07B8D7BA1CD123AF001EB05E /* DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTransform.swift; sourceTree = "<group>"; };
+		07B8D7BB1CD123AF001EB05E /* EnumTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumTransform.swift; sourceTree = "<group>"; };
+		07B8D7BC1CD123AF001EB05E /* ISO8601DateTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISO8601DateTransform.swift; sourceTree = "<group>"; };
+		07B8D7BD1CD123AF001EB05E /* NSDecimalNumberTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDecimalNumberTransform.swift; sourceTree = "<group>"; };
+		07B8D7BE1CD123AF001EB05E /* TransformOf.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformOf.swift; sourceTree = "<group>"; };
+		07B8D7BF1CD123AF001EB05E /* TransformType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransformType.swift; sourceTree = "<group>"; };
+		07B8D7C01CD123AF001EB05E /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
+		07B8D7DD1CD153AF001EB05E /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
+		07B8D7DF1CD158AE001EB05E /* CollieCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieCache.swift; sourceTree = "<group>"; };
 		07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDisplayerVC.swift; sourceTree = "<group>"; };
 		07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlaceDisplayerVC.storyboard; sourceTree = "<group>"; };
 		07D480051CC0113900693ADF /* APICache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICache.swift; sourceTree = "<group>"; };
@@ -140,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				0745496C1CBEC1490083A2EC /* models */,
+				0706C98F1CC03FA3000A11FF /* pages */,
 				0745495B1CBEB63D0083A2EC /* core */,
 			);
 			name = "demo-app";
@@ -178,6 +214,9 @@
 				074549661CBEB8F70083A2EC /* CollieModel.swift */,
 				0745495E1CBEB64F0083A2EC /* CollieHandler.swift */,
 				0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */,
+				07B8D7DF1CD158AE001EB05E /* CollieCache.swift */,
+				07D480051CC0113900693ADF /* APICache.swift */,
+				07B8D7DC1CD147F1001EB05E /* lib */,
 				074549651CBEB8E20083A2EC /* vendor */,
 				0706C9A91CC0977E000A11FF /* demo-app */,
 			);
@@ -187,7 +226,6 @@
 		0745495B1CBEB63D0083A2EC /* core */ = {
 			isa = PBXGroup;
 			children = (
-				0706C98F1CC03FA3000A11FF /* pages */,
 				074549491CBEB5D30083A2EC /* AppDelegate.swift */,
 				074549551CBEB5D30083A2EC /* Info.plist */,
 				074549501CBEB5D30083A2EC /* Assets.xcassets */,
@@ -200,8 +238,7 @@
 		074549651CBEB8E20083A2EC /* vendor */ = {
 			isa = PBXGroup;
 			children = (
-				07D480051CC0113900693ADF /* APICache.swift */,
-				0706C9901CC04E6A000A11FF /* Array+.swift */,
+				07B8D7AD1CD123AF001EB05E /* ObjectMapper */,
 			);
 			name = vendor;
 			sourceTree = "<group>";
@@ -213,6 +250,55 @@
 				0706C9A21CC0739C000A11FF /* StarWarsPerson.swift */,
 			);
 			name = models;
+			sourceTree = "<group>";
+		};
+		07B8D7AD1CD123AF001EB05E /* ObjectMapper */ = {
+			isa = PBXGroup;
+			children = (
+				07B8D7AE1CD123AF001EB05E /* Core */,
+				07B8D7B61CD123AF001EB05E /* ObjectMapper.h */,
+				07B8D7B71CD123AF001EB05E /* Transforms */,
+			);
+			name = ObjectMapper;
+			path = vendor/ObjectMapper;
+			sourceTree = "<group>";
+		};
+		07B8D7AE1CD123AF001EB05E /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				07B8D7AF1CD123AF001EB05E /* FromJSON.swift */,
+				07B8D7B01CD123AF001EB05E /* Map.swift */,
+				07B8D7B11CD123AF001EB05E /* Mappable.swift */,
+				07B8D7B21CD123AF001EB05E /* Mapper.swift */,
+				07B8D7B31CD123AF001EB05E /* Operators.swift */,
+				07B8D7B41CD123AF001EB05E /* ToJSON.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		07B8D7B71CD123AF001EB05E /* Transforms */ = {
+			isa = PBXGroup;
+			children = (
+				07B8D7B81CD123AF001EB05E /* CustomDateFormatTransform.swift */,
+				07B8D7B91CD123AF001EB05E /* DateFormatterTransform.swift */,
+				07B8D7BA1CD123AF001EB05E /* DateTransform.swift */,
+				07B8D7BB1CD123AF001EB05E /* EnumTransform.swift */,
+				07B8D7BC1CD123AF001EB05E /* ISO8601DateTransform.swift */,
+				07B8D7BD1CD123AF001EB05E /* NSDecimalNumberTransform.swift */,
+				07B8D7BE1CD123AF001EB05E /* TransformOf.swift */,
+				07B8D7BF1CD123AF001EB05E /* TransformType.swift */,
+				07B8D7C01CD123AF001EB05E /* URLTransform.swift */,
+			);
+			path = Transforms;
+			sourceTree = "<group>";
+		};
+		07B8D7DC1CD147F1001EB05E /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				0706C9901CC04E6A000A11FF /* Array+.swift */,
+				07B8D7DD1CD153AF001EB05E /* Thread.swift */,
+			);
+			name = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,19 +379,36 @@
 			buildActionMask = 2147483647;
 			files = (
 				074549611CBEB64F0083A2EC /* CollieHandler.swift in Sources */,
+				07B8D7C31CD123AF001EB05E /* Mappable.swift in Sources */,
+				07B8D7CA1CD123AF001EB05E /* DateTransform.swift in Sources */,
 				0706C9911CC04E6A000A11FF /* Array+.swift in Sources */,
+				07B8D7CD1CD123AF001EB05E /* NSDecimalNumberTransform.swift in Sources */,
+				07B8D7D01CD123AF001EB05E /* URLTransform.swift in Sources */,
+				07B8D7CE1CD123AF001EB05E /* TransformOf.swift in Sources */,
 				0706C9A11CC07379000A11FF /* StarWarsTVC.swift in Sources */,
+				07B8D7C41CD123AF001EB05E /* Mapper.swift in Sources */,
 				0745496B1CBEBFAB0083A2EC /* CollieErrors.swift in Sources */,
 				0706C9A31CC0739C000A11FF /* StarWarsPerson.swift in Sources */,
+				07B8D7CC1CD123AF001EB05E /* ISO8601DateTransform.swift in Sources */,
+				07B8D7CF1CD123AF001EB05E /* TransformType.swift in Sources */,
+				07B8D7DE1CD153AF001EB05E /* Thread.swift in Sources */,
 				0706C9A61CC0763B000A11FF /* APIModelDetailsVC.swift in Sources */,
 				07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */,
+				07B8D7C81CD123AF001EB05E /* CustomDateFormatTransform.swift in Sources */,
 				07D480061CC0113900693ADF /* APICache.swift in Sources */,
 				0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */,
+				07B8D7C21CD123AF001EB05E /* Map.swift in Sources */,
 				074549601CBEB64F0083A2EC /* CollieCollection.swift in Sources */,
 				0706C9AD1CC09AA3000A11FF /* CollieAPI.swift in Sources */,
 				0706C99A1CC07116000A11FF /* DenverTVC.swift in Sources */,
 				0745494A1CBEB5D30083A2EC /* AppDelegate.swift in Sources */,
+				07B8D7CB1CD123AF001EB05E /* EnumTransform.swift in Sources */,
+				07B8D7C11CD123AF001EB05E /* FromJSON.swift in Sources */,
 				074549621CBEB64F0083A2EC /* Place.swift in Sources */,
+				07B8D7C51CD123AF001EB05E /* Operators.swift in Sources */,
+				07B8D7E01CD158AE001EB05E /* CollieCache.swift in Sources */,
+				07B8D7C91CD123AF001EB05E /* DateFormatterTransform.swift in Sources */,
+				07B8D7C61CD123AF001EB05E /* ToJSON.swift in Sources */,
 				074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */,
 				0706C9AB1CC099EE000A11FF /* APIs.swift in Sources */,
 				074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */,
