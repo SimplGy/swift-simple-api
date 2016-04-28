@@ -22,23 +22,18 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   typealias Handler = CollieHandler<ModelProtocol>
   var subscribers = Set<Handler>()
   
-  /// Timestamped memcache
-//  var cache = APICache<ModelProtocol>()
-  
   /// The latest server response this collection instance fetched
-  /// It's safe to use this directly, but it may be an empty array if the data has never been fetched, or is definitelyOld
-//  var latest: [ModelProtocol] { return APICache.latest(self.url) }
-//  var latest: [ModelProtocol] { return cache.data }
+  /// It's safe to use this directly, but it may be an empty array if the data has never been fetched
   var latest = [ModelProtocol]()
 //  var latest: [ModelProtocol] {
 //    get { return self.cache.definitelyOld ? [] : _latest }
 //    set { _latest = newValue }
 //  }
-  var cache: APICache { return APICache.get(fullUrl) }
+  
+//  var cache: APICache { return APICache.get(fullUrl) }
   
   let api: Collie
   let path: String
-  private var fullUrl: String { return api.rootURL + self.path }
   
   /**
    Create a collection instance
@@ -73,87 +68,92 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
     
     print("")
     
-    switch cache.freshness {
-      
+    print("api.getCollection(\(self.path))")
+    api.getCollection(self.path, success: self.got, finally: finally)
+    
+    // let cache = CollieCache.getCollectionCache("Place", "api.waitress.com/places/nearby?d=9999")
+    
+      //        self.got($0)
+      //        finally?()
+      //      }
+    
+    
+//    switch cache.freshness {
+    
     // The cache is definitely up-to-date, we can just use the memory copy and never ask the server
     // Behavior: 
-    case .Fresh:
-      print(".Fresh")
-      got(latest)
-      finally?()
+//    case .Fresh:
+//      print(".Fresh")
+//      got(latest)
+//      finally?()
       
     // The cache data might be ok. Return the latest data but also query the server for updates
     // Behavior: Lazy Invalidation
-    case .Uncertain:
-      print(".Uncertain")
-      got(latest)
-      getCollection(fullUrl) {
-        self.got($0)
-        finally?()
-      }
+//    case .Uncertain:
+//      print(".Uncertain")
+//      got(latest)
+//      getCollection(fullUrl) {
+//        self.got($0)
+//        finally?()
+//      }
       
     // The cache is definitely old. Blank out current results and get new data
     // Behavior: Greedy Invalidation
-    case .Old:
-      print(".Old")
-      latest = []
-      got(latest)
-      getCollection(fullUrl) {
-        self.got($0)
-        finally?()
-      }
+//    case .Old:
+//      print(".Old")
+//      latest = []
+//      got(latest)
+//      getCollection(fullUrl) {
+//        self.got($0)
+//        finally?()
+//      }
       
-    }
+//    }
   }
   
-  // TODO: move to APIEndpoint or similar facade
-  func getCollection(urlString: String, success: ([Collie.JSON])->()) {
-    
-    guard let urlComponents = NSURLComponents(string: urlString) else { return print("Couldn't create url: \(urlString)") }
-    urlComponents.queryItems = (urlComponents.queryItems ?? []) + api.queryParams
-    guard let url = urlComponents.URL else { return print("Couldn't get NSURL from NSURLComponents: \(urlComponents)") }
-    let request = NSMutableURLRequest(URL: url)
-    request.HTTPMethod = "GET"
-    request.timeoutInterval = api.timeout
-    for (key, val) in api.headers {
-      request.setValue(val, forHTTPHeaderField: key)
-    }
-    
-    let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
-      self.pendingOperations -= 1
-      guard let data = data where error == nil else { return print("Networking error: \(error)") }
-      guard let httpStatus = response as? NSHTTPURLResponse else { return print("Can't parse NSHTTPURLResponse") }
-      guard httpStatus.statusCode == 200 else { return print("statusCode should be 200, but is \(httpStatus.statusCode). Response: \(response)") }
-      
-      do {
-        let json = try self.jsonFromData(data)
-        self.cache.json = json
-        success(json)
-      } catch {
-        print("error converting response to JSONObjectWithData: \(error)")
-      }
-      
-    }
-    pendingOperations += 1
-    task.resume()
-  }
+
+//  func getCollection(urlString: String, success: ([Collie.JSON])->()) {
+//    
+//    guard let urlComponents = NSURLComponents(string: urlString) else { return print("Couldn't create url: \(urlString)") }
+//    urlComponents.queryItems = (urlComponents.queryItems ?? []) + api.queryParams
+//    guard let url = urlComponents.URL else { return print("Couldn't get NSURL from NSURLComponents: \(urlComponents)") }
+//    let request = NSMutableURLRequest(URL: url)
+//    request.HTTPMethod = "GET"
+//    request.timeoutInterval = api.timeout
+//    for (key, val) in api.headers {
+//      request.setValue(val, forHTTPHeaderField: key)
+//    }
+//    
+//    let task = NSURLSession.sharedSession().dataTaskWithRequest(request) { data, response, error in
+//      self.pendingOperations -= 1
+//      guard let data = data where error == nil else { return print("Networking error: \(error)") }
+//      guard let httpStatus = response as? NSHTTPURLResponse else { return print("Can't parse NSHTTPURLResponse") }
+//      guard httpStatus.statusCode == 200 else { return print("statusCode should be 200, but is \(httpStatus.statusCode). Response: \(response)") }
+//      
+//      do {
+//        let json = try CollieParse.jsonArrayFromData(data, topLevelKey: self.api.topLevelKey)
+//        success(json)
+//      } catch {
+//        print("error converting response to JSONObjectWithData: \(error)")
+//      }
+//      
+//    }
+//    pendingOperations += 1
+//    task.resume()
+//  }
   
 
   
   // ----------------------------- MARK: Private
-  private func jsonFromData(data: NSData) throws -> [Collie.JSON] {
-    let anyObj = try NSJSONSerialization.JSONObjectWithData(data, options: []) // let this error bubble up
-    if let json = anyObj as? [Collie.JSON] {
-      return json
-    } else if let key = api.topLevelKey, outer = anyObj as? Collie.JSON, json = outer[key] as? [Collie.JSON] {
-      return json
-    }
-    throw CollieErrors.CantParseNSDataToJsonDictionary
-  }
   
   /// Turn a dictionary response into a set of typed objects
   private func got(jsonArray: [Collie.JSON]) {
-    let parsedItems = Mapper<ModelProtocol>().mapArray(jsonArray) ?? []
+    
+    // Factory syntax
+    //let parsedItems = Mapper<ModelProtocol>().mapArray(jsonArray) ?? []
+    
+    // Constructor syntax
+    let parsedItems = jsonArray.flatMap { ModelProtocol(json: $0) }
     
     // TODO: figure out design for new 2-layer (mem and disk) cache
     // TODO: safe to assume the order matches?

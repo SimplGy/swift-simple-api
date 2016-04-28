@@ -29,7 +29,7 @@
 		074549621CBEB64F0083A2EC /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745495F1CBEB64F0083A2EC /* Place.swift */; };
 		074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549631CBEB6600083A2EC /* BudapestTVC.swift */; };
 		074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549661CBEB8F70083A2EC /* CollieModel.swift */; };
-		0745496B1CBEBFAB0083A2EC /* CollieErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */; };
+		0745496B1CBEBFAB0083A2EC /* CollieError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745496A1CBEBFAB0083A2EC /* CollieError.swift */; };
 		07B8D7C11CD123AF001EB05E /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7AF1CD123AF001EB05E /* FromJSON.swift */; };
 		07B8D7C21CD123AF001EB05E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B01CD123AF001EB05E /* Map.swift */; };
 		07B8D7C31CD123AF001EB05E /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B11CD123AF001EB05E /* Mappable.swift */; };
@@ -47,9 +47,10 @@
 		07B8D7D01CD123AF001EB05E /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7C01CD123AF001EB05E /* URLTransform.swift */; };
 		07B8D7DE1CD153AF001EB05E /* Thread.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7DD1CD153AF001EB05E /* Thread.swift */; };
 		07B8D7E01CD158AE001EB05E /* CollieCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7DF1CD158AE001EB05E /* CollieCache.swift */; };
+		07B9545D1CD28EE000CD6C4A /* CollieParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B9545C1CD28EE000CD6C4A /* CollieParse.swift */; };
+		07B9545F1CD2914C00CD6C4A /* Collie+HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B9545E1CD2914C00CD6C4A /* Collie+HTTP.swift */; };
 		07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */; };
 		07D480021CBF4A5700693ADF /* PlaceDisplayerVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */; };
-		07D480061CC0113900693ADF /* APICache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D480051CC0113900693ADF /* APICache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +78,7 @@
 		0745495F1CBEB64F0083A2EC /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		074549631CBEB6600083A2EC /* BudapestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudapestTVC.swift; sourceTree = "<group>"; };
 		074549661CBEB8F70083A2EC /* CollieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieModel.swift; sourceTree = "<group>"; };
-		0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieErrors.swift; sourceTree = "<group>"; };
+		0745496A1CBEBFAB0083A2EC /* CollieError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieError.swift; sourceTree = "<group>"; };
 		07B8D7AF1CD123AF001EB05E /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
 		07B8D7B01CD123AF001EB05E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		07B8D7B11CD123AF001EB05E /* Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
@@ -96,9 +97,10 @@
 		07B8D7C01CD123AF001EB05E /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
 		07B8D7DD1CD153AF001EB05E /* Thread.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thread.swift; sourceTree = "<group>"; };
 		07B8D7DF1CD158AE001EB05E /* CollieCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieCache.swift; sourceTree = "<group>"; };
+		07B9545C1CD28EE000CD6C4A /* CollieParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieParse.swift; sourceTree = "<group>"; };
+		07B9545E1CD2914C00CD6C4A /* Collie+HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collie+HTTP.swift"; sourceTree = "<group>"; };
 		07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDisplayerVC.swift; sourceTree = "<group>"; };
 		07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlaceDisplayerVC.storyboard; sourceTree = "<group>"; };
-		07D480051CC0113900693ADF /* APICache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APICache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,9 +215,10 @@
 				0745495D1CBEB64F0083A2EC /* CollieCollection.swift */,
 				074549661CBEB8F70083A2EC /* CollieModel.swift */,
 				0745495E1CBEB64F0083A2EC /* CollieHandler.swift */,
-				0745496A1CBEBFAB0083A2EC /* CollieErrors.swift */,
+				0745496A1CBEBFAB0083A2EC /* CollieError.swift */,
 				07B8D7DF1CD158AE001EB05E /* CollieCache.swift */,
-				07D480051CC0113900693ADF /* APICache.swift */,
+				07B9545C1CD28EE000CD6C4A /* CollieParse.swift */,
+				07B9545E1CD2914C00CD6C4A /* Collie+HTTP.swift */,
 				07B8D7DC1CD147F1001EB05E /* lib */,
 				074549651CBEB8E20083A2EC /* vendor */,
 				0706C9A91CC0977E000A11FF /* demo-app */,
@@ -387,7 +390,7 @@
 				07B8D7CE1CD123AF001EB05E /* TransformOf.swift in Sources */,
 				0706C9A11CC07379000A11FF /* StarWarsTVC.swift in Sources */,
 				07B8D7C41CD123AF001EB05E /* Mapper.swift in Sources */,
-				0745496B1CBEBFAB0083A2EC /* CollieErrors.swift in Sources */,
+				0745496B1CBEBFAB0083A2EC /* CollieError.swift in Sources */,
 				0706C9A31CC0739C000A11FF /* StarWarsPerson.swift in Sources */,
 				07B8D7CC1CD123AF001EB05E /* ISO8601DateTransform.swift in Sources */,
 				07B8D7CF1CD123AF001EB05E /* TransformType.swift in Sources */,
@@ -395,7 +398,7 @@
 				0706C9A61CC0763B000A11FF /* APIModelDetailsVC.swift in Sources */,
 				07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */,
 				07B8D7C81CD123AF001EB05E /* CustomDateFormatTransform.swift in Sources */,
-				07D480061CC0113900693ADF /* APICache.swift in Sources */,
+				07B9545D1CD28EE000CD6C4A /* CollieParse.swift in Sources */,
 				0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */,
 				07B8D7C21CD123AF001EB05E /* Map.swift in Sources */,
 				074549601CBEB64F0083A2EC /* CollieCollection.swift in Sources */,
@@ -409,6 +412,7 @@
 				07B8D7E01CD158AE001EB05E /* CollieCache.swift in Sources */,
 				07B8D7C91CD123AF001EB05E /* DateFormatterTransform.swift in Sources */,
 				07B8D7C61CD123AF001EB05E /* ToJSON.swift in Sources */,
+				07B9545F1CD2914C00CD6C4A /* Collie+HTTP.swift in Sources */,
 				074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */,
 				0706C9AB1CC099EE000A11FF /* APIs.swift in Sources */,
 				074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */,

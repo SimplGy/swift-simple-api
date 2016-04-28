@@ -13,6 +13,16 @@ import Foundation
 class Collie {
   
   typealias JSON = [String : AnyObject]
+  typealias JSONArray = [JSON]
+  
+  enum Freshness {
+    case Old
+    case Fresh
+    case Uncertain
+  }
+  
+  /// Set `true` if you want to see what Collie is thinking
+  var logTrace = true
   
   /// The root of your api endpoint. No trailing slash, please.
   let rootURL: String
@@ -39,6 +49,11 @@ class Collie {
   
   func makeCollection<T>(path: String) -> CollieCollection<T> {
     return CollieCollection(path: path, api: self)
+  }
+  
+  func trace(msg: String) {
+    guard logTrace else { return }
+    print("Collie:\(rootURL) -- \(msg)")
   }
   
 }
