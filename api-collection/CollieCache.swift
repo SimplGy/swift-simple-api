@@ -21,7 +21,7 @@ class CollieCache {
   
   struct CachedJSON {
     let age: NSDate = NSDate()
-    let json: CollieAPI.JSON
+    let json: Collie.JSON
   }
   
   private static var memCache = [String: CacheKVP]()
@@ -48,7 +48,7 @@ class CollieCache {
    - parameter key:  The key for this instance of the model. Usually an id like 42 or 60DFAA
    - parameter json: A JSON dictionary of values to store
    */
-  static func set(type: String, key: String, json: CollieAPI.JSON) {
+  static func set(type: String, key: String, json: Collie.JSON) {
     memCache[type] = memCache[type] ?? CacheKVP()
     // if get(type, key: key) != nil { print("replacing \(type)[\(key)]") }
     memCache[type]![key] = CachedJSON(json: json)

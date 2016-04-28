@@ -36,7 +36,7 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
 //  }
   var cache: APICache { return APICache.get(fullUrl) }
   
-  let api: CollieAPI
+  let api: Collie
   let path: String
   private var fullUrl: String { return api.rootURL + self.path }
   
@@ -45,7 +45,7 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
    - parameter url: The url to fetch the collection from. Will be appended to APIConfig.rootUrl, if present
    - parameter api: An instance of a CollieAPI, so that we know what endpoint and config to work with
    */
-  init(path: String, api: CollieAPI) {
+  init(path: String, api: Collie) {
     self.path = path
     self.api = api
   }
@@ -107,7 +107,7 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   }
   
   // TODO: move to APIEndpoint or similar facade
-  func getCollection(urlString: String, success: ([CollieAPI.JSON])->()) {
+  func getCollection(urlString: String, success: ([Collie.JSON])->()) {
     
     guard let urlComponents = NSURLComponents(string: urlString) else { return print("Couldn't create url: \(urlString)") }
     urlComponents.queryItems = (urlComponents.queryItems ?? []) + api.queryParams
@@ -141,18 +141,18 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
 
   
   // ----------------------------- MARK: Private
-  private func jsonFromData(data: NSData) throws -> [CollieAPI.JSON] {
+  private func jsonFromData(data: NSData) throws -> [Collie.JSON] {
     let anyObj = try NSJSONSerialization.JSONObjectWithData(data, options: []) // let this error bubble up
-    if let json = anyObj as? [CollieAPI.JSON] {
+    if let json = anyObj as? [Collie.JSON] {
       return json
-    } else if let key = api.topLevelKey, outer = anyObj as? CollieAPI.JSON, json = outer[key] as? [CollieAPI.JSON] {
+    } else if let key = api.topLevelKey, outer = anyObj as? Collie.JSON, json = outer[key] as? [Collie.JSON] {
       return json
     }
     throw CollieErrors.CantParseNSDataToJsonDictionary
   }
   
   /// Turn a dictionary response into a set of typed objects
-  private func got(jsonArray: [CollieAPI.JSON]) {
+  private func got(jsonArray: [Collie.JSON]) {
     let parsedItems = Mapper<ModelProtocol>().mapArray(jsonArray) ?? []
     
     // TODO: figure out design for new 2-layer (mem and disk) cache

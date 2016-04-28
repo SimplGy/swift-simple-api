@@ -17,7 +17,7 @@
 		0706C9A61CC0763B000A11FF /* APIModelDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9A51CC0763B000A11FF /* APIModelDetailsVC.swift */; };
 		0706C9A81CC07646000A11FF /* APIModelDetailsVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C9A71CC07646000A11FF /* APIModelDetailsVC.storyboard */; };
 		0706C9AB1CC099EE000A11FF /* APIs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AA1CC099EE000A11FF /* APIs.swift */; };
-		0706C9AD1CC09AA3000A11FF /* CollieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AC1CC09AA3000A11FF /* CollieAPI.swift */; };
+		0706C9AD1CC09AA3000A11FF /* Collie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AC1CC09AA3000A11FF /* Collie.swift */; };
 		0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AF1CC0A5E4000A11FF /* StockholmTVC.swift */; };
 		0706C9B21CC0A60F000A11FF /* StockholmTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */; };
 		0745494A1CBEB5D30083A2EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549491CBEB5D30083A2EC /* AppDelegate.swift */; };
@@ -63,7 +63,7 @@
 		0706C9A51CC0763B000A11FF /* APIModelDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIModelDetailsVC.swift; sourceTree = "<group>"; };
 		0706C9A71CC07646000A11FF /* APIModelDetailsVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = APIModelDetailsVC.storyboard; sourceTree = "<group>"; };
 		0706C9AA1CC099EE000A11FF /* APIs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
-		0706C9AC1CC09AA3000A11FF /* CollieAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieAPI.swift; sourceTree = "<group>"; };
+		0706C9AC1CC09AA3000A11FF /* Collie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collie.swift; sourceTree = "<group>"; };
 		0706C9AF1CC0A5E4000A11FF /* StockholmTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockholmTVC.swift; sourceTree = "<group>"; };
 		0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StockholmTVC.storyboard; sourceTree = "<group>"; };
 		074549461CBEB5D30083A2EC /* api-collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "api-collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,7 +209,7 @@
 		074549481CBEB5D30083A2EC /* api-collection */ = {
 			isa = PBXGroup;
 			children = (
-				0706C9AC1CC09AA3000A11FF /* CollieAPI.swift */,
+				0706C9AC1CC09AA3000A11FF /* Collie.swift */,
 				0745495D1CBEB64F0083A2EC /* CollieCollection.swift */,
 				074549661CBEB8F70083A2EC /* CollieModel.swift */,
 				0745495E1CBEB64F0083A2EC /* CollieHandler.swift */,
@@ -399,7 +399,7 @@
 				0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */,
 				07B8D7C21CD123AF001EB05E /* Map.swift in Sources */,
 				074549601CBEB64F0083A2EC /* CollieCollection.swift in Sources */,
-				0706C9AD1CC09AA3000A11FF /* CollieAPI.swift in Sources */,
+				0706C9AD1CC09AA3000A11FF /* Collie.swift in Sources */,
 				0706C99A1CC07116000A11FF /* DenverTVC.swift in Sources */,
 				0745494A1CBEB5D30083A2EC /* AppDelegate.swift in Sources */,
 				07B8D7CB1CD123AF001EB05E /* EnumTransform.swift in Sources */,

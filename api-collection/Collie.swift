@@ -10,7 +10,7 @@ import Foundation
 
 
 /// Base class for your API endpoint and container for configuration
-class CollieAPI {
+class Collie {
   
   typealias JSON = [String : AnyObject]
   
