@@ -40,7 +40,16 @@ class CollieParse {
     throw CollieError.CantParseNSDataToJsonDictionary
   }
   
-//  func jsonFromData(data: NSData) throws -> [Collie.JSON] {
+  
+  // From: https://github.com/melke/SlimLogger/blob/master/SlimLogger/SlimLogger.swift
+  static func cleanFilename(filename:String) -> String {
+    var retval = ""
+    let items = filename.characters.split(allowEmptySlices: false, isSeparator:{$0=="/"}).map { String($0) }
+    if items.count > 0 {
+      retval = items.last!
+    }
+    return retval
+  }
   
   
   

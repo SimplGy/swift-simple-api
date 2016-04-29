@@ -38,10 +38,7 @@ class DenverTVC: UITableViewController {
   
   
   func onPullToRefresh() {
-    print("")
-    print("onPullToRefresh")
     places.get() {
-      print("finally")
       self.refreshControl?.endRefreshing()
     }
   }

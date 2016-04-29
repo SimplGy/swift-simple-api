@@ -7,7 +7,7 @@ import Foundation
 
 extension String {
   
-  func lockWidth(amount: Int) -> String {
+  func fixedWidth(amount: Int) -> String {
     return self.stringByPaddingToLength(amount, withString: " ", startingAtIndex: 0)
   }
   

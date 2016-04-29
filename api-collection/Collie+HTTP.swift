@@ -14,9 +14,9 @@ extension Collie {
    
    - parameter urlPath: The trailing path for your collection, such as "/people/" or "/textsearch/json?query=Restaurants+in+Budapest"
    - parameter modelType: The string name of the type of object you are getting for correct cache storage
-   - parameter success: Callback for success
+   - parameter success: Callback for success. Note: because of lazy invalidation, this method may be called twice if there is a cache of uncertain status found.
    - parameter failure: Callback for failure. optional. default implementation logs a trace of the error
-   - parameter finally: Callback when either success or failure, called after both.
+   - parameter finally: Callback when either success or failure, called after both. Only called once, even for lazy invalidation behavior.
    
    - returns: NSURLSessionDataTask so you can cancel the request if you'd like
    */
@@ -27,6 +27,23 @@ extension Collie {
     failure: ( (ErrorType)        -> () )? = { Collie.trace("\($0)") },
     finally: ( ()                 -> () )? = nil
   ) -> NSURLSessionDataTask? {
+    
+    // Do we have a cached value for this path?
+    if let cache = CollieCache.getCollection(type: modelType, key: urlPath) {
+      
+      switch cache.freshness {
+      case .Fresh:
+        Collie.trace("Definitely fresh \(modelType)['\(urlPath)']: \(cache)")
+        success(cache.jsonArray)
+        finally?()
+        return nil
+      case .Uncertain:
+        success(cache.jsonArray) // report success, but continue on to make the request as usual
+      case .Old:
+        break // nothing, just make the request as normal
+      }
+      
+    }
     
     let fullUrl = self.rootURL + urlPath
     guard let urlComponents = NSURLComponents(string: fullUrl) else { print(CollieError.CouldntCreateNSURL(url: fullUrl)); return nil }

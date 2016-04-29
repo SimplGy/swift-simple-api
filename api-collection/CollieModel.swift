@@ -11,6 +11,13 @@ import Foundation
 public protocol CollieModel: Mappable, Hashable, CustomStringConvertible {}
 
 
+/**
+ For all CollieModels, the default behavior of `==` is to compare `hashValue`
+ */
+public func ==<T: CollieModel>(lhs: T, rhs: T) -> Bool {
+  return lhs.hashValue == rhs.hashValue
+}
+
 
 extension CollieModel {
   

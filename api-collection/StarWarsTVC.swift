@@ -29,10 +29,7 @@ class StarWarsTVC: UITableViewController {
   }
   
   func onPullToRefresh() {
-    print("")
-    print("onPullToRefresh")
     collie.get() {
-      print("finally")
       self.refreshControl?.endRefreshing()
     }
   }

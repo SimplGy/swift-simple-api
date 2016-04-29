@@ -20,12 +20,13 @@ class StockholmTVC: UITableViewController {
     // ADVANTAGE: one call to set up fetch & observation
     // ADVANTAGE: error callback is optional
     // ADVANTAGE: don't need to make this view class a delegate
-    places.observe( CollieHandler(onPlacesUpdated) )
+    places.observe( CollieHandler(onPlacesUpdated) ) // TODO: put this in viewDidAppear. This will battle-test that handlers don't cause memory leaks, and prompt a data check when you open this screen.
     refreshControl = UIRefreshControl()
     refreshControl?.backgroundColor = UIColor.darkGrayColor()
     refreshControl?.tintColor = UIColor.whiteColor()
     refreshControl?.addTarget(self, action: #selector(onPullToRefresh), forControlEvents: .ValueChanged)
   }
+  
   
   
   // --------------------------------------------------- MARK: APIHandler
@@ -37,13 +38,12 @@ class StockholmTVC: UITableViewController {
   
   
   func onPullToRefresh() {
-    print("")
-    print("onPullToRefresh")
     places.get() {
-      print("finally")
       self.refreshControl?.endRefreshing()
     }
   }
+  
+  
   
   // --------------------------------------------------- MARK: UITableViewController
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

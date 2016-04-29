@@ -1,34 +1,13 @@
 //
 //  CollieCache.swift
-//  api-collection
 //
-//  Created by Eric on 4/27/16.
-//  Copyright © 2016 Simple Guy. All rights reserved.
-//
-
 import Foundation
 
-/**
- For all Hashables, the default behavior of `==` is to compare `hashValue`
- */
-public func ==<T: Hashable>(lhs: T, rhs: T) -> Bool {
-  return lhs.hashValue == rhs.hashValue
-}
+
 
 class CollieCache {
  
-  struct CachedJSON {
-    let age = NSDate()
-    var secondsOld: Int { return -Int(self.age.timeIntervalSinceNow) }
-    let json: Collie.JSON
-  }
   typealias CachedJSONKVP = [String:CachedJSON]
-  
-  struct CachedReferences {
-    let age = NSDate()
-    var secondsOld: Int { return -Int(self.age.timeIntervalSinceNow) }
-    let references: [String]
-  }
   typealias CachedReferencesKVP = [String:CachedReferences]
   
   // The memCache is organized by type and key like this: modelMemCache["CamperVan"]["WhiteLightning"]
@@ -36,6 +15,8 @@ class CollieCache {
   private static var modelMemCache      = [String: CachedJSONKVP ]()
   
   
+  
+  // ------------------------------------------ MARK: Store
   
   /**
    Store a collection of model objects into the cache
@@ -59,14 +40,7 @@ class CollieCache {
     }
     
     // Store the individual model objects. This separation allows collections and models to share cache
-    let resultsShorted = results[0..<results.count - 3]
-    try resultsShorted.forEach { try storeModel(type: type, idAttribute: idAttribute, json: $0) }
-    
-    log()
-    print("")
-    print("")
-    print("")
-    verifyCollectionReferenceIntegrity()
+    try results.forEach { try storeModel(type: type, idAttribute: idAttribute, json: $0) }
   }
  
   
@@ -89,16 +63,54 @@ class CollieCache {
   
   
   
+  // ------------------------------------------ MARK: Get
+  
   /**
-   Get a value from cache
-   
+   Get a value from cache, nil if not present or old data
    - parameter type: The type of the model, eg: Place, User, Dinosaur
    - parameter key:  The key for this instance of the model. Usually an id like 42 or 60DFAA
-   
-   - returns: A response if one can be found
+   - returns: A cached JSON object representation
    */
-  static func getModel(type: String, key: String) -> CachedJSON? {
-    return modelMemCache[type]?[key]
+  static func getModel(type type: String, key: String) -> CachedJSON? {
+    guard let cache = modelMemCache[type]?[key] else { return nil }
+    guard !cache.definitelyOld else {
+      Collie.trace("getModel(type: \(type), key: \(key)) is .definitelyOld, invalidating")
+      modelMemCache[type]?[key] = nil
+      return nil
+    }
+    return cache
+  }
+  
+  /**
+   Get a collection from cache. Returns nil if the cache is old.
+   It doesn't
+   - parameter type: The type of the model, eg: Place, User, Dinosaur
+   - parameter key:  The key for this instance of the model. Usually an id like 42 or 60DFAA
+   - returns: A cache object with age metadata and an array of JSON models
+   */
+  static func getCollection(type type: String, key: String) -> CachedJSONArray? {
+    guard let cache = collectionMemCache[type]?[key] else { return nil }
+    
+    // The whole cache might be old
+    guard !cache.definitelyOld else {
+      Collie.trace("getCollection(type: \(type), key: \(key)) is .definitelyOld, invalidating")
+      collectionMemCache[type]?[key] = nil
+      return nil
+    }
+    
+    // The models refered to by this cache might be missing
+    let missing = cache.references.filter { getModel(type: type, key: $0) == nil }
+    guard missing.count == 0 else {
+      Collie.warn("getCollection(type: \(type), key: \(key)) is missing \(missing.count) of the models it has references to, invalidating.")
+      collectionMemCache[type]?[key] = nil
+      return nil
+    }
+    
+    // TODO: ? Some of the models refered to by this cache might be old
+    
+    // Simplify the (potential) mismatch in cache age by returning plain model JSON with the age on the whole collection
+    let models = cache.references.flatMap({ getModel(type: type, key: $0) }).map { $0.json }
+    return CachedJSONArray(age: cache.age, jsonArray: models)
   }
   
   
@@ -123,7 +135,7 @@ class CollieCache {
     for (type, cacheKVP) in collectionMemCache {
       print("\(cacheKVP.count) \(type) collection query cache entries")
       for (key, cacheEntry) in cacheKVP {
-        print("\(key.lockWidth(48)) \(cacheEntry.secondsOld)s old. References: \(cacheEntry.references.count)")
+        print("\(key.fixedWidth(48)) \(cacheEntry.ageDisplay)s old. References: \(cacheEntry.references.count)")
         if fullObjects {
           cacheEntry.references.forEach { print($0) }
         }
@@ -134,11 +146,11 @@ class CollieCache {
   private static func logModelsInMemory(detailed detailed: Bool = false) {
     print("\(modelMemCache.count) types of CollieCache Model: (\(modelMemCache.map({ $0.0 }).joinWithSeparator(", ")))")
     for (type, cache) in modelMemCache {
-      let totalAge = cache.reduce(Int(0)) { $0 + $1.1.secondsOld }
-      let avgAge = totalAge / cache.count
+      let totalAge = cache.reduce(NSTimeInterval(0)) { $0 + $1.1.ageInSeconds }
+      let avgAge = Int( totalAge / Double(cache.count) )
       print("\(cache.count) \(type) model cache entries, averaging \(Int(avgAge))s old")
       if detailed {
-        cache.forEach { (key, val) in print("\(key.lockWidth(48)) \(val.secondsOld)s old. props: \(val.json.count)") }
+        cache.forEach { (key, val) in print("\(key.fixedWidth(48)) \(val.ageDisplay)s old. props: \(val.json.count)") }
       }
     }
   }
@@ -157,14 +169,14 @@ class CollieCache {
       for (collectionQueryKey, cacheEntry) in cacheKVP {
         
         // Get an array of the references that are missing from the model cache (0 would be good)
-        let missing = cacheEntry.references.filter { getModel(type, key: $0) == nil }
+        let missing = cacheEntry.references.filter { getModel(type: type, key: $0) == nil }
         
         // Log a message reporting the findings
-        let msgPrefix = "\(type.lockWidth(16)) \(collectionQueryKey.lockWidth(48))"
+        let msgPrefix = "\(type.fixedWidth(16)) \(collectionQueryKey.fixedWidth(48))"
         if missing.count == 0 {
-          Collie.trace("\(msgPrefix) found all \(cacheEntry.references.count) references. age: \(cacheEntry.secondsOld)s old.")
+          Collie.trace("\(msgPrefix) found all \(cacheEntry.references.count) references. age: \(cacheEntry.ageDisplay)s old.")
         } else {
-          Collie.warn("\(msgPrefix) missing \(missing.count) references. age: \(cacheEntry.secondsOld)s old.")
+          Collie.warn("\(msgPrefix) missing \(missing.count) references. age: \(cacheEntry.ageDisplay)s old.")
           missing.forEach { Collie.warn("Missing \(type)[\($0)]") }
         }
         
@@ -179,66 +191,3 @@ class CollieCache {
 
 
 
-
-
-
-
-
-
-
-//
-//  APICache.swift
-//  api-collection
-//
-//  Created by Eric on 4/14/16.
-//  Copyright © 2016 Simple Guy. All rights reserved.
-//
-
-
-
-
-
-// ------------------------------------------------- Static
-//  private static var storage = [ String : APICache ]()
-//
-//  /**
-//   Get a cache object by key
-//   - parameter key: Unique string key for this cache (url works)
-//   - returns: A cache object you can get data from and inspect for freshness
-//   */
-//  static func get(key: String) -> APICache {
-//    let cache = storage[key] ?? APICache()
-//    storage[key] = cache
-//    return cache
-//  }
-
-
-  // ------------------------------------------------- Instance
-//  private let definitelyOldTheshold:   NSTimeInterval = 60 * 60 * 48   // seconds. if it's older than this, the data can't possibly be any good
-//  private let definitelyFreshTheshold: NSTimeInterval = 10             // seconds. If it's younger than this, the data is almost certainly great
-//  // if definitelyOld, use greedy invalidation
-//  // if definitelyFresh, don't request from server unless `force` is on
-//  // In between these old and fresh times, use lazy invalidation strategy
-//  
-//  private var ageInSeconds: NSTimeInterval { return -lastUpdate.timeIntervalSinceNow }
-//  var definitelyOld:   Bool { return ageInSeconds > definitelyOldTheshold   }
-//  var definitelyFresh: Bool { return ageInSeconds < definitelyFreshTheshold }
-//
-//  var freshness: CacheFreshness {
-//    print("ageInSeconds: \( lastUpdate.timeIntervalSince1970 == 0 ? "Not Cached" : String(Int(ageInSeconds)) )")
-//    if definitelyOld { return .Old }
-//    if definitelyFresh { return .Fresh }
-//    return .Uncertain
-//  }
-
-//  var lastUpdate = NSDate(timeIntervalSince1970: 0)
-//  private var _json = [NSDictionary]()
-//  var json: [NSDictionary] {
-//    get {
-//      return self._json
-//    }
-//    set {
-//      self.lastUpdate = NSDate()
-//      self._json = newValue
-//    }
-//  }

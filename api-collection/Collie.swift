@@ -20,12 +20,24 @@ class Collie {
     case Fresh
     case Uncertain
   }
-  
+
+
+
+  // ------------------------------------- MARK: Static
+
+  /// Set `true` if you want to see what Collie is thinking
   static var logTrace = true
   
-  /// Set `true` if you want to see what Collie is thinking
+  /// If it's older than this, the data can't possibly be any good
+  static let definitelyOldTheshold:   NSTimeInterval = 60 * 60 * 48 // 48 hours
+  
+  /// If it's younger than this, the data is almost certainly great, we won't even check the server.
+  static let definitelyFreshTheshold: NSTimeInterval = 3
   
   
+
+  // ------------------------------------- MARK: Instance
+
   /// The root of your api endpoint. No trailing slash, please.
   let rootURL: String
   
@@ -43,7 +55,10 @@ class Collie {
   
   /// What JSON attribute uniquely identifies objects for this API? If it's not "id", you can change the setting here. This is needed to key the cache.
   var idAttribute = "id"
+
   
+
+
   init(_ rootURL: String) {
     self.rootURL = rootURL
   }
@@ -52,12 +67,20 @@ class Collie {
     return CollieCollection(path: path, api: self)
   }
   
-  static func trace(msg: String) {
+
+
+  // ------------------------------------- MARK: Logging
+
+  static func trace(msg: String, filename: String = #file, line: Int = #line) {
     guard logTrace else { return }
-    print("Collie.trace:        \(msg)")
+    logInternal("trace", filename: filename, line: line, msg: msg)
   }
-  static func warn(msg: String) {
-    print("Collie.warn:  /!\\    \(msg)")
+  static func warn (msg: String, filename: String = #file, line: Int = #line) {
+    logInternal("warn ", filename: filename, line: line, msg: msg)
+  }
+  private static func logInternal(level: String, filename: String, line: Int, msg: String) {
+    let file = CollieParse.cleanFilename(filename)
+    print("Collie.\(level) \(file)#\(line): \(msg)")
   }
   
 }
