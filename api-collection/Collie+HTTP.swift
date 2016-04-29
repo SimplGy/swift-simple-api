@@ -13,14 +13,16 @@ extension Collie {
    Get a collection of objects from an API endpoint
    
    - parameter urlPath: The trailing path for your collection, such as "/people/" or "/textsearch/json?query=Restaurants+in+Budapest"
+   - parameter modelType: The string name of the type of object you are getting for correct cache storage
    - parameter success: Callback for success
    - parameter failure: Callback for failure
    - parameter finally: Callback when either success or failure, called after both.
    
    - returns: NSURLSessionDataTask so you can cancel the request if you'd like
    */
-  func getCollection(
+  func getCollection (
     urlPath: String,
+    modelType: String,
     success: ( (Collie.JSONArray) -> () ),
     failure: ( (ErrorType)        -> () )? = nil,
     finally: ( ()                 -> () )? = nil
@@ -63,8 +65,12 @@ extension Collie {
       // All good in the hood
       } else if let data = data {
         do {
-          let json = try CollieParse.jsonArrayFromData(data, topLevelKey: self.topLevelKey)
-          success(json)
+          let jsonArray = try CollieParse.jsonArrayFromData(data, topLevelKey: self.topLevelKey)
+          
+          // Successful data. Cache it.
+          try CollieCache.storeCollection(type: modelType, key: urlPath, idAttribute: self.idAttribute, results: jsonArray)
+          
+          success(jsonArray)
         } catch {
           self.trace("error converting response to JSONObjectWithData: \(error)")
           failure?(error)

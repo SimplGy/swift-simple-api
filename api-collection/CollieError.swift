@@ -16,4 +16,6 @@ enum CollieError: ErrorType {
   case CouldntCreateNSURL(url: String)
   case CouldntGetURLFromComponents(components: String)
   case NoDataOrError
+  case JSONMissingId(json: Collie.JSON, idAttribute: String)
+  case JSONUnknownTypeId(idValue: String, idAttribute: String)
 }

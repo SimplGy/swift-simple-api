@@ -66,13 +66,11 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   */
   func get(finally: (()->())? = nil) {
     
-    print("")
-    
-    print("api.getCollection(\(self.path))")
-    api.getCollection(self.path, success: self.got, finally: finally)
+    // TODO: is `String(ModelProtocol.self)` reliable, or do I need a static property on each model?
+    api.getCollection(self.path, modelType: String(ModelProtocol.self), success: self.gotJSON, finally: finally)
     
     // let cache = CollieCache.getCollectionCache("Place", "api.waitress.com/places/nearby?d=9999")
-    
+
       //        self.got($0)
       //        finally?()
       //      }
@@ -142,42 +140,46 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
 //    task.resume()
 //  }
   
-
+  
   
   // ----------------------------- MARK: Private
   
   /// Turn a dictionary response into a set of typed objects
-  private func got(jsonArray: [Collie.JSON]) {
+  private func gotJSON(jsonArray: Collie.JSONArray) {
+
     
-    // Factory syntax
-    //let parsedItems = Mapper<ModelProtocol>().mapArray(jsonArray) ?? []
     
-    // Constructor syntax
-    let parsedItems = jsonArray.flatMap { ModelProtocol(json: $0) }
+    // ## 1. Create typed items from the JSON
+    //let items = Mapper<ModelProtocol>().mapArray(jsonArray) ?? [] // Factory syntax
+    let items = jsonArray.flatMap { ModelProtocol(JSON: $0) } // Constructor syntax
+    
+    
+    
+    // ## 2. Update the cache with the latest response
+    // TODO: should this be an HTTP-layer cache, where the collection knows nothing about it? -- no, because you can't assume `id` is the hash key -- or yes, because you can make that configuration.
     
     // TODO: figure out design for new 2-layer (mem and disk) cache
     // TODO: safe to assume the order matches?
-    for (i, item) in parsedItems.enumerate() {
-      CollieCache.set("\(item.dynamicType)", key: String(item.hashValue), json: jsonArray[i])
-    }
-    CollieCache.log()
+//    for (i, item) in items.enumerate() {
+//      CollieCache.set("\(item.dynamicType)", key: String(item.hashValue), json: jsonArray[i])
+//    }
 
-    got(parsedItems)
-  }
-  
-  private func got(items: [ModelProtocol]) {
-    print("got \(items.count) items")
+//    got(parsedItems)
+//  }
+//  private func got(items: [ModelProtocol]) {
+    
+//    print("got \(items.count) items")
     
     // if items == self.latest { return print("items are identical") }
     var identical = true
     if items.count != latest.count {
       identical = false
-      print("different counts")
+//      print("different counts")
     } else {
       for (idx, item) in items.enumerate() {
         if !item.sameValueAs(latest[idx]) {
           identical = false
-          print("different values")
+//          print("different values")
           print(item.toJSON())
           print(latest[idx].toJSON())
           break

@@ -1,9 +1,6 @@
 import Foundation
 
 
-func ==(lhs: StarWarsPerson, rhs: StarWarsPerson) -> Bool {
-  return lhs.hashValue == rhs.hashValue
-}
 
 //class StarWarsPerson: CollieModel, CustomStringConvertible {
 class StarWarsPerson: CollieModel {

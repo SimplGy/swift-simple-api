@@ -19,6 +19,7 @@ class APIs {
     let api = Collie("https://maps.googleapis.com/maps/api/place")
     api.topLevelKey = "results"
     api.queryParams.append(NSURLQueryItem(name: "key", value: "AIzaSyAp_K45jvW741bDwypZsXocpeBKDxmEyjY"))
+    api.idAttribute = "place_id"
     return api
   }()
   
@@ -26,6 +27,7 @@ class APIs {
   static var starWars: Collie = {
     let api = Collie("https://swapi.co/api")
     api.topLevelKey = "results"
+    api.idAttribute = "url"
     return api
   }()
 

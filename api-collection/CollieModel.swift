@@ -28,18 +28,6 @@ public protocol CollieModel: Mappable, Hashable, CustomStringConvertible {
   
 }
 
-
-
-extension Mappable {
-  init?(json: [String : AnyObject]) {
-    let map = Map(mappingType: .FromJSON, JSONDictionary: json, toObject: true)
-    self.init(map)
-    self.mapping(map)
-  }
-}
-
-
-
 extension CollieModel {
   
   /// Default description is just the JSON data

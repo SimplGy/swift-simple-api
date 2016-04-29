@@ -39,9 +39,8 @@ class Collie {
   /// Some apis respond with an object with a key that contains an array of actual results. This string lets you specify that
   var topLevelKey: String?
   
-  
-  
-  
+  /// What JSON attribute uniquely identifies objects for this API? If it's not "id", you can change the setting here. This is needed to key the cache.
+  var idAttribute = "id"
   
   init(_ rootURL: String) {
     self.rootURL = rootURL

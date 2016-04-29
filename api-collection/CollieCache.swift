@@ -17,25 +17,53 @@ public func ==<T: Hashable>(lhs: T, rhs: T) -> Bool {
 
 class CollieCache {
  
-  typealias CacheKVP = [String: CachedJSON]
-  
   struct CachedJSON {
-    let age: NSDate = NSDate()
+    let age = NSDate()
+    var secondsOld: Int { return -Int(self.age.timeIntervalSinceNow) }
     let json: Collie.JSON
   }
+  typealias CachedJSONKVP = [String:CachedJSON]
   
-  private static var memCache = [String: CacheKVP]()
+  struct CachedReferences {
+    let age = NSDate()
+    var secondsOld: Int { return -Int(self.age.timeIntervalSinceNow) }
+    let references: [String]
+  }
+  typealias CachedReferencesKVP = [String:CachedReferences]
   
-//  got object response...
-//  cache.store('camperVan',      vanObj)
-//  objType: String,  obj: NSDictionary
-//  
-//  got collection response...
-//  cache.storeSet('camperVan',     'api.instagram.com/images?s=yellow%20vans', ["1", "3", "42"]
-//  objType: String  collectionQuery: String,                   results: [String]
+  // The memCache is organized by type and key like this: modelMemCache["CamperVan"]["WhiteLightning"]
+  private static var collectionMemCache = [String: CachedReferencesKVP ]()
+  private static var modelMemCache      = [String: CachedJSONKVP ]()
   
-  // static func storeCollection(objectType: String, queryKey: String, results: [json]) {}
-  // private static func storeCollectionReferences(objectType: String, queryKey: String, references: [String]) {}
+  
+  
+  /**
+   Store a collection of model objects into the cache
+   
+   - parameter type:        The name of the model type this homogenous collection deals with
+   - parameter key:         The key for this collection query, such as "" or ""
+   - parameter idAttribute: The location of the unique id property in each model
+   - parameter results:     Array of JSON objects to cache
+   
+   - throws: CollieErrors if it can't find or cast the id inside the JSON
+   */
+  static func storeCollection(type type: String, key: String, idAttribute: String, results: Collie.JSONArray) throws {
+    
+    // Store "references" to the ids that this query returns
+    let ids = results.flatMap { try? CollieParse.getIdFromJSON($0, idAttribute: idAttribute) }
+    collectionMemCache[type] = collectionMemCache[type] ?? CachedReferencesKVP()
+    collectionMemCache[type]![key] = CachedReferences(references: ids)
+    if ids.count != results.count {
+      let missing = results.filter { (try? CollieParse.getIdFromJSON($0, idAttribute: idAttribute)) == nil }
+      print("Some \(type) json objects are missing ids in attribute `\(idAttribute)`: \r\n\(missing)")
+    }
+    
+    // Store the individual model objects. This separation allows collections and models to share cache
+    try results.forEach { try storeModel(type: type, idAttribute: idAttribute, json: $0) }
+    
+    log()
+  }
+ 
   
   
   /**
@@ -43,14 +71,18 @@ class CollieCache {
    TODO: this updates the date at the same time because it creates a whole new cache struct. Should I instead just update the time in certain situations?
    
    - parameter type: The type of the model, eg: Place, User, Dinosaur
-   - parameter key:  The key for this instance of the model. Usually an id like 42 or 60DFAA
+   - parameter idAttribute: The property name where the id for this model is found
    - parameter json: A JSON dictionary of values to store
+   
+   - throws: An exception if the idAttribute isn't found in the object
    */
-  static func set(type: String, key: String, json: Collie.JSON) {
-    memCache[type] = memCache[type] ?? CacheKVP()
-    // if get(type, key: key) != nil { print("replacing \(type)[\(key)]") }
-    memCache[type]![key] = CachedJSON(json: json)
+  static func storeModel(type type: String, idAttribute: String, json: Collie.JSON) throws {
+    let key = try CollieParse.getIdFromJSON(json, idAttribute: idAttribute)
+    modelMemCache[type] = modelMemCache[type] ?? CachedJSONKVP()
+    modelMemCache[type]![key] = CachedJSON(json: json)
   }
+  
+  
   
   /**
    Get a value from cache
@@ -60,25 +92,64 @@ class CollieCache {
    
    - returns: A response if one can be found
    */
-  static func get(type: String, key: String) -> CachedJSON? {
-    if let result = memCache[type]?[key] { return result }
-    return nil
-  }
+//  static func get(type: String, key: String) -> CachedJSON? {
+//    if let result = memCache[type]?[key] { return result }
+//    return nil
+//  }
+  
+  
+  
+  // ---------------------------------------------- MARK: Løgging
   
   /**
    Log out everything that's in cache right now
    */
   static func log(){
-    print("CollieCache.log()")
-    print("--------------------")
-    for (type, cache) in memCache {
-      print("\(type) (\(cache.count)):")
-      for (idx, (_, cachedJSON)) in cache.enumerate() {
-        print("[\(String(format: "%03d", idx))] \(-Int(cachedJSON.age.timeIntervalSinceNow))s old. props: \(cachedJSON.json.count)")
+    print("")
+    print("## Collections:")
+    logCollections()
+    print("")
+    print("## Models:")
+    logModels()
+    print("")
+  }
+  
+  static func logCollections(fullObjects fullObjects: Bool = false) {
+    print("\(collectionMemCache.count) types of CollieCache Collection: (\(collectionMemCache.map({ $0.0 }).joinWithSeparator(", ")))")
+    for (type, cache) in collectionMemCache {
+      print("\(cache.count) \(type) collection query cache entries")
+      for (key, value) in cache {
+        print("\(key.stringByPaddingToLength(48, withString: " ", startingAtIndex: 0)) \(value.secondsOld)s old. References: \(value.references.count)")
+        if fullObjects {
+          value.references.forEach { print($0) }
+        }
       }
     }
-    print("--------------------")
   }
+  
+  static func logModels(detailed detailed: Bool = false) {
+    print("\(modelMemCache.count) types of CollieCache Model: (\(modelMemCache.map({ $0.0 }).joinWithSeparator(", ")))")
+    for (type, cache) in modelMemCache {
+      let totalAge = cache.reduce(Int(0)) { $0 + $1.1.secondsOld }
+      let avgAge = totalAge / cache.count
+      print("\(cache.count) \(type) model cache entries, averaging \(Int(avgAge))s old")
+      if detailed {
+        cache.forEach { (key, val) in print("\(key.stringByPaddingToLength(48, withString: " ", startingAtIndex: 0)) \(val.secondsOld)s old. props: \(val.json.count)") }
+      }
+    }
+  }
+  
+  //String(format: "%03d", idx)
+  
+  
+  
+  
+  
+  /// Because we want to be able to observe old cache items. We can expire old ones and verify it's worked as expected
+  //  private static func logCacheObjectsByAge(oldestFirst: Bool = true) {}
+  
+  /// Because the collection cache just contains ids that reference model cache, we may want to programatically inspect the reference integrity from time to time
+  //  private static func verifyCollectionReferenceIntegrity() {}
   
   
   

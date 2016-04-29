@@ -8,6 +8,20 @@ import Foundation
 
 class CollieParse {
   
+  
+  static func getIdFromJSON(json: Collie.JSON, idAttribute: String) throws -> String {
+    guard let val = json[idAttribute] else { throw CollieError.JSONMissingId(json: json, idAttribute: idAttribute) }
+    if let str = val as? String {
+      return str
+    } else if let int64 = (val as? NSNumber)?.longLongValue {
+      return String(int64)
+    } else if let int = val as? Int {
+      return String(int)
+    }
+    throw CollieError.JSONUnknownTypeId(idValue: "\(val)", idAttribute: idAttribute)
+  }
+  
+  
   /**
    Try to get an array of json dictionaries from the given nsdata
    
@@ -27,6 +41,8 @@ class CollieParse {
   }
   
 //  func jsonFromData(data: NSData) throws -> [Collie.JSON] {
+  
+  
   
   
 }

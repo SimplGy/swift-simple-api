@@ -1,9 +1,6 @@
 import Foundation
 
 
-//func ==(lhs: Place, rhs: Place) -> Bool {
-//  return lhs.hashValue == rhs.hashValue
-//}
 
 class Place: CollieModel, CustomStringConvertible {
 
