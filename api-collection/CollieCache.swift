@@ -59,9 +59,14 @@ class CollieCache {
     }
     
     // Store the individual model objects. This separation allows collections and models to share cache
-    try results.forEach { try storeModel(type: type, idAttribute: idAttribute, json: $0) }
+    let resultsShorted = results[0..<results.count - 3]
+    try resultsShorted.forEach { try storeModel(type: type, idAttribute: idAttribute, json: $0) }
     
     log()
+    print("")
+    print("")
+    print("")
+    verifyCollectionReferenceIntegrity()
   }
  
   
@@ -92,10 +97,9 @@ class CollieCache {
    
    - returns: A response if one can be found
    */
-//  static func get(type: String, key: String) -> CachedJSON? {
-//    if let result = memCache[type]?[key] { return result }
-//    return nil
-//  }
+  static func getModel(type: String, key: String) -> CachedJSON? {
+    return modelMemCache[type]?[key]
+  }
   
   
   
@@ -107,39 +111,37 @@ class CollieCache {
   static func log(){
     print("")
     print("## Collections:")
-    logCollections()
+    logCollectionsInMemory()
     print("")
     print("## Models:")
-    logModels()
+    logModelsInMemory()
     print("")
   }
   
-  static func logCollections(fullObjects fullObjects: Bool = false) {
+  private static func logCollectionsInMemory(fullObjects fullObjects: Bool = false) {
     print("\(collectionMemCache.count) types of CollieCache Collection: (\(collectionMemCache.map({ $0.0 }).joinWithSeparator(", ")))")
-    for (type, cache) in collectionMemCache {
-      print("\(cache.count) \(type) collection query cache entries")
-      for (key, value) in cache {
-        print("\(key.stringByPaddingToLength(48, withString: " ", startingAtIndex: 0)) \(value.secondsOld)s old. References: \(value.references.count)")
+    for (type, cacheKVP) in collectionMemCache {
+      print("\(cacheKVP.count) \(type) collection query cache entries")
+      for (key, cacheEntry) in cacheKVP {
+        print("\(key.lockWidth(48)) \(cacheEntry.secondsOld)s old. References: \(cacheEntry.references.count)")
         if fullObjects {
-          value.references.forEach { print($0) }
+          cacheEntry.references.forEach { print($0) }
         }
       }
     }
   }
   
-  static func logModels(detailed detailed: Bool = false) {
+  private static func logModelsInMemory(detailed detailed: Bool = false) {
     print("\(modelMemCache.count) types of CollieCache Model: (\(modelMemCache.map({ $0.0 }).joinWithSeparator(", ")))")
     for (type, cache) in modelMemCache {
       let totalAge = cache.reduce(Int(0)) { $0 + $1.1.secondsOld }
       let avgAge = totalAge / cache.count
       print("\(cache.count) \(type) model cache entries, averaging \(Int(avgAge))s old")
       if detailed {
-        cache.forEach { (key, val) in print("\(key.stringByPaddingToLength(48, withString: " ", startingAtIndex: 0)) \(val.secondsOld)s old. props: \(val.json.count)") }
+        cache.forEach { (key, val) in print("\(key.lockWidth(48)) \(val.secondsOld)s old. props: \(val.json.count)") }
       }
     }
   }
-  
-  //String(format: "%03d", idx)
   
   
   
@@ -149,7 +151,27 @@ class CollieCache {
   //  private static func logCacheObjectsByAge(oldestFirst: Bool = true) {}
   
   /// Because the collection cache just contains ids that reference model cache, we may want to programatically inspect the reference integrity from time to time
-  //  private static func verifyCollectionReferenceIntegrity() {}
+  private static func verifyCollectionReferenceIntegrity() {
+
+    for (type, cacheKVP) in collectionMemCache {
+      for (collectionQueryKey, cacheEntry) in cacheKVP {
+        
+        // Get an array of the references that are missing from the model cache (0 would be good)
+        let missing = cacheEntry.references.filter { getModel(type, key: $0) == nil }
+        
+        // Log a message reporting the findings
+        let msgPrefix = "\(type.lockWidth(16)) \(collectionQueryKey.lockWidth(48))"
+        if missing.count == 0 {
+          Collie.trace("\(msgPrefix) found all \(cacheEntry.references.count) references. age: \(cacheEntry.secondsOld)s old.")
+        } else {
+          Collie.warn("\(msgPrefix) missing \(missing.count) references. age: \(cacheEntry.secondsOld)s old.")
+          missing.forEach { Collie.warn("Missing \(type)[\($0)]") }
+        }
+        
+      }
+    }
+  
+  }
   
   
   

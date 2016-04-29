@@ -6,27 +6,11 @@ import Foundation
 
 
 /**
- *  This is the base model protocol for objects that CollieAPI works with
- *  You should be able to init each one from json, and serialize it back to json
- *  per-object caching means you must also implement Hashable and Equatable so we can find and update cache locations
+ *  This is the base model protocol for objects that API Collie works with
  */
-public protocol CollieModel: Mappable, Hashable, CustomStringConvertible {
-  
-  /**
-   json -> swift object
-   A failable initializer, because we don't trust arbitrary json
-   - parameter json: Dictionary of values.
-   - returns: Typed swift model object. If you don't get valid json, return nil
-   */
-  //init?(json: NSDictionary)
-  
-  /**
-   Convert the object into a json representation
-   - returns: NSDictionary representing the json
-   */
-  //func toJSON() -> NSDictionary
-  
-}
+public protocol CollieModel: Mappable, Hashable, CustomStringConvertible {}
+
+
 
 extension CollieModel {
   
@@ -43,5 +27,5 @@ extension CollieModel {
   func sameValueAs<T: CollieModel>(otherModel: T) -> Bool {
     return self.toJSONString() == otherModel.toJSONString()
   }
-  
+
 }

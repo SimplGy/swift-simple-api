@@ -15,7 +15,7 @@ extension Collie {
    - parameter urlPath: The trailing path for your collection, such as "/people/" or "/textsearch/json?query=Restaurants+in+Budapest"
    - parameter modelType: The string name of the type of object you are getting for correct cache storage
    - parameter success: Callback for success
-   - parameter failure: Callback for failure
+   - parameter failure: Callback for failure. optional. default implementation logs a trace of the error
    - parameter finally: Callback when either success or failure, called after both.
    
    - returns: NSURLSessionDataTask so you can cancel the request if you'd like
@@ -24,7 +24,7 @@ extension Collie {
     urlPath: String,
     modelType: String,
     success: ( (Collie.JSONArray) -> () ),
-    failure: ( (ErrorType)        -> () )? = nil,
+    failure: ( (ErrorType)        -> () )? = { Collie.trace("\($0)") },
     finally: ( ()                 -> () )? = nil
   ) -> NSURLSessionDataTask? {
     
@@ -46,19 +46,16 @@ extension Collie {
       
       // Networking Error
       if let error = error {
-        self.trace("networking error: \(error)")
         failure?(error)
         finally?()
       
       // Unparsable Status
       } else if httpStatus == nil {
-        self.trace("CantParseNSHTTPURLResponse")
         failure?(CollieError.CantParseNSHTTPURLResponse)
         finally?()
         
       // Bad Status
       } else if let httpStatus = httpStatus where httpStatus.statusCode != 200 {
-        self.trace("statusCode should be 200, but is \(httpStatus.statusCode). Response: \(response)")
         failure?(CollieError.HTTPStatusError(code: httpStatus.statusCode))
         finally?()
         
@@ -72,14 +69,12 @@ extension Collie {
           
           success(jsonArray)
         } catch {
-          self.trace("error converting response to JSONObjectWithData: \(error)")
           failure?(error)
         }
         finally?()
         
       // Unexpected. No data, no error.
       } else {
-        print("CollieError.NoDataOrError")
         failure?(CollieError.NoDataOrError)
         finally?()
       }

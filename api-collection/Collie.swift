@@ -21,8 +21,10 @@ class Collie {
     case Uncertain
   }
   
+  static var logTrace = true
+  
   /// Set `true` if you want to see what Collie is thinking
-  var logTrace = true
+  
   
   /// The root of your api endpoint. No trailing slash, please.
   let rootURL: String
@@ -50,9 +52,12 @@ class Collie {
     return CollieCollection(path: path, api: self)
   }
   
-  func trace(msg: String) {
+  static func trace(msg: String) {
     guard logTrace else { return }
-    print("Collie:\(rootURL) -- \(msg)")
+    print("Collie.trace:        \(msg)")
+  }
+  static func warn(msg: String) {
+    print("Collie.warn:  /!\\    \(msg)")
   }
   
 }

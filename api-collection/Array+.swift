@@ -1,5 +1,5 @@
 //
-//  Enhancements for the foundation Array class
+//  Enhancements for the Array class
 //
 
 

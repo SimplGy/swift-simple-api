@@ -30,6 +30,7 @@
 		074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549631CBEB6600083A2EC /* BudapestTVC.swift */; };
 		074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549661CBEB8F70083A2EC /* CollieModel.swift */; };
 		0745496B1CBEBFAB0083A2EC /* CollieError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745496A1CBEBFAB0083A2EC /* CollieError.swift */; };
+		07B1D8E61CD2FFFB00C26F17 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1D8E51CD2FFFB00C26F17 /* String+.swift */; };
 		07B8D7C11CD123AF001EB05E /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7AF1CD123AF001EB05E /* FromJSON.swift */; };
 		07B8D7C21CD123AF001EB05E /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B01CD123AF001EB05E /* Map.swift */; };
 		07B8D7C31CD123AF001EB05E /* Mappable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7B11CD123AF001EB05E /* Mappable.swift */; };
@@ -79,6 +80,7 @@
 		074549631CBEB6600083A2EC /* BudapestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudapestTVC.swift; sourceTree = "<group>"; };
 		074549661CBEB8F70083A2EC /* CollieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieModel.swift; sourceTree = "<group>"; };
 		0745496A1CBEBFAB0083A2EC /* CollieError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieError.swift; sourceTree = "<group>"; };
+		07B1D8E51CD2FFFB00C26F17 /* String+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		07B8D7AF1CD123AF001EB05E /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
 		07B8D7B01CD123AF001EB05E /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		07B8D7B11CD123AF001EB05E /* Mappable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mappable.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 			children = (
 				0706C9901CC04E6A000A11FF /* Array+.swift */,
 				07B8D7DD1CD153AF001EB05E /* Thread.swift */,
+				07B1D8E51CD2FFFB00C26F17 /* String+.swift */,
 			);
 			name = lib;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				0706C9A11CC07379000A11FF /* StarWarsTVC.swift in Sources */,
 				07B8D7C41CD123AF001EB05E /* Mapper.swift in Sources */,
 				0745496B1CBEBFAB0083A2EC /* CollieError.swift in Sources */,
+				07B1D8E61CD2FFFB00C26F17 /* String+.swift in Sources */,
 				0706C9A31CC0739C000A11FF /* StarWarsPerson.swift in Sources */,
 				07B8D7CC1CD123AF001EB05E /* ISO8601DateTransform.swift in Sources */,
 				07B8D7CF1CD123AF001EB05E /* TransformType.swift in Sources */,
