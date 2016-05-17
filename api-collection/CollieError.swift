@@ -18,4 +18,5 @@ enum CollieError: ErrorType {
   case NoDataOrError
   case JSONMissingId(json: Collie.JSON, idAttribute: String)
   case JSONUnknownTypeId(idValue: String, idAttribute: String)
+  case ObjectNotSymmetrical
 }

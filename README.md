@@ -67,12 +67,16 @@ The other type of equality we need to know about is value equality. I implement 
 - [x] API is configurable
 - [x] Stores results to a mem cache
 - [x] Support global url params eg: api's API keys: `https://maps.googleapis.com/...&key=YOUR_API_KEY`
+- [ ] Model layer has minimal boilerplate and enforces symmetrical toJSON <-> fromJSON behavior
 - [ ] Stores results to a disk cache
 - [x] Demo includes more than one collection type
+- [x] Switch to Unbox/Wrap instead of ObjectMapper (supports constants and non-optional Model properties)
 - [ ] Single object gets are supported
 
 ## Future
 - [ ] mem cache FIFO invalidatable
+- [x] Improve Unbox/Wrap by reducing init boilerplate using reflection for default properties to unbox. Getting the property names is easy, but `setValueForKey` is not available. Maybe if I were to enforce that they all me NSObject or Managed Object, but I want to keep it swifty. Here's a solution though: https://gist.github.com/perlmunger/32d8ba0b277ce9bb1618
+- [ ] Improve Unbox/Wrap by enforcing symettrical Unbox/Wrap operations using a dictionary or other "config" data structure
 
 ## Cite
 

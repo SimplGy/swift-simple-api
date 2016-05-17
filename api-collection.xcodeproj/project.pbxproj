@@ -20,6 +20,8 @@
 		0706C9AD1CC09AA3000A11FF /* Collie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AC1CC09AA3000A11FF /* Collie.swift */; };
 		0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0706C9AF1CC0A5E4000A11FF /* StockholmTVC.swift */; };
 		0706C9B21CC0A60F000A11FF /* StockholmTVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */; };
+		07397DEC1CEA7DE70070E27D /* Unbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07397DEB1CEA7DE70070E27D /* Unbox.swift */; };
+		07397DEE1CEA7FE20070E27D /* Wrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07397DED1CEA7FE20070E27D /* Wrap.swift */; };
 		0745494A1CBEB5D30083A2EC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549491CBEB5D30083A2EC /* AppDelegate.swift */; };
 		0745494F1CBEB5D30083A2EC /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0745494D1CBEB5D30083A2EC /* Root.storyboard */; };
 		074549511CBEB5D30083A2EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074549501CBEB5D30083A2EC /* Assets.xcassets */; };
@@ -30,6 +32,13 @@
 		074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549631CBEB6600083A2EC /* BudapestTVC.swift */; };
 		074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074549661CBEB8F70083A2EC /* CollieModel.swift */; };
 		0745496B1CBEBFAB0083A2EC /* CollieError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0745496A1CBEBFAB0083A2EC /* CollieError.swift */; };
+		075DBF821CEB933A00E65596 /* PersonDisplayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075DBF811CEB933A00E65596 /* PersonDisplayerVC.swift */; };
+		075DBF841CEB95F100E65596 /* GooglePlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075DBF831CEB95F100E65596 /* GooglePlace.swift */; };
+		075DBF861CEB95F800E65596 /* WaitressPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075DBF851CEB95F800E65596 /* WaitressPlace.swift */; };
+		075DBF881CEB9BA000E65596 /* GooglePlaceDisplayerVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 075DBF871CEB9BA000E65596 /* GooglePlaceDisplayerVC.storyboard */; };
+		075DBF8A1CEB9BAB00E65596 /* WaitressPlaceDisplayerVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 075DBF891CEB9BAB00E65596 /* WaitressPlaceDisplayerVC.storyboard */; };
+		075DBF8C1CEB9BD400E65596 /* GooglePlaceDisplayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075DBF8B1CEB9BD400E65596 /* GooglePlaceDisplayerVC.swift */; };
+		075DBF8E1CEB9BDE00E65596 /* WaitressPlaceDisplayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075DBF8D1CEB9BDE00E65596 /* WaitressPlaceDisplayerVC.swift */; };
 		07B1D8E61CD2FFFB00C26F17 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1D8E51CD2FFFB00C26F17 /* String+.swift */; };
 		07B1D8E91CD30BCE00C26F17 /* CachedThing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B1D8E81CD30BCE00C26F17 /* CachedThing.swift */; };
 		07B8D7C11CD123AF001EB05E /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7AF1CD123AF001EB05E /* FromJSON.swift */; };
@@ -50,8 +59,6 @@
 		07B8D7E01CD158AE001EB05E /* CollieCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B8D7DF1CD158AE001EB05E /* CollieCache.swift */; };
 		07B9545D1CD28EE000CD6C4A /* CollieParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B9545C1CD28EE000CD6C4A /* CollieParse.swift */; };
 		07B9545F1CD2914C00CD6C4A /* Collie+HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B9545E1CD2914C00CD6C4A /* Collie+HTTP.swift */; };
-		07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */; };
-		07D480021CBF4A5700693ADF /* PlaceDisplayerVC.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +75,8 @@
 		0706C9AC1CC09AA3000A11FF /* Collie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collie.swift; sourceTree = "<group>"; };
 		0706C9AF1CC0A5E4000A11FF /* StockholmTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockholmTVC.swift; sourceTree = "<group>"; };
 		0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StockholmTVC.storyboard; sourceTree = "<group>"; };
+		07397DEB1CEA7DE70070E27D /* Unbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Unbox.swift; path = vendor/Unbox/Sources/Unbox.swift; sourceTree = "<group>"; };
+		07397DED1CEA7FE20070E27D /* Wrap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Wrap.swift; path = vendor/Wrap/Sources/Wrap.swift; sourceTree = "<group>"; };
 		074549461CBEB5D30083A2EC /* api-collection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "api-collection.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		074549491CBEB5D30083A2EC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0745494E1CBEB5D30083A2EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Root.storyboard; sourceTree = "<group>"; };
@@ -80,6 +89,13 @@
 		074549631CBEB6600083A2EC /* BudapestTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BudapestTVC.swift; sourceTree = "<group>"; };
 		074549661CBEB8F70083A2EC /* CollieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieModel.swift; sourceTree = "<group>"; };
 		0745496A1CBEBFAB0083A2EC /* CollieError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieError.swift; sourceTree = "<group>"; };
+		075DBF811CEB933A00E65596 /* PersonDisplayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonDisplayerVC.swift; sourceTree = "<group>"; };
+		075DBF831CEB95F100E65596 /* GooglePlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlace.swift; sourceTree = "<group>"; };
+		075DBF851CEB95F800E65596 /* WaitressPlace.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitressPlace.swift; sourceTree = "<group>"; };
+		075DBF871CEB9BA000E65596 /* GooglePlaceDisplayerVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GooglePlaceDisplayerVC.storyboard; sourceTree = "<group>"; };
+		075DBF891CEB9BAB00E65596 /* WaitressPlaceDisplayerVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = WaitressPlaceDisplayerVC.storyboard; sourceTree = "<group>"; };
+		075DBF8B1CEB9BD400E65596 /* GooglePlaceDisplayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GooglePlaceDisplayerVC.swift; sourceTree = "<group>"; };
+		075DBF8D1CEB9BDE00E65596 /* WaitressPlaceDisplayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitressPlaceDisplayerVC.swift; sourceTree = "<group>"; };
 		07B1D8E51CD2FFFB00C26F17 /* String+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		07B1D8E81CD30BCE00C26F17 /* CachedThing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CachedThing.swift; sourceTree = "<group>"; };
 		07B8D7AF1CD123AF001EB05E /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FromJSON.swift; sourceTree = "<group>"; };
@@ -101,8 +117,6 @@
 		07B8D7DF1CD158AE001EB05E /* CollieCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieCache.swift; sourceTree = "<group>"; };
 		07B9545C1CD28EE000CD6C4A /* CollieParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollieParse.swift; sourceTree = "<group>"; };
 		07B9545E1CD2914C00CD6C4A /* Collie+HTTP.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collie+HTTP.swift"; sourceTree = "<group>"; };
-		07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceDisplayerVC.swift; sourceTree = "<group>"; };
-		07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlaceDisplayerVC.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,7 +138,7 @@
 				0706C9921CC06ACF000A11FF /* Denver */,
 				0706C99D1CC07358000A11FF /* Star Wars */,
 				0706C9AE1CC0A5C9000A11FF /* Stockholm */,
-				0706C9A41CC0761B000A11FF /* StarWarsPerson Details */,
+				0706C9A41CC0761B000A11FF /* Person Details */,
 				0706C9931CC06AEB000A11FF /* Place Details */,
 			);
 			name = pages;
@@ -142,8 +156,10 @@
 		0706C9931CC06AEB000A11FF /* Place Details */ = {
 			isa = PBXGroup;
 			children = (
-				07D47FFF1CBF494100693ADF /* PlaceDisplayerVC.swift */,
-				07D480011CBF4A5700693ADF /* PlaceDisplayerVC.storyboard */,
+				075DBF871CEB9BA000E65596 /* GooglePlaceDisplayerVC.storyboard */,
+				075DBF891CEB9BAB00E65596 /* WaitressPlaceDisplayerVC.storyboard */,
+				075DBF8B1CEB9BD400E65596 /* GooglePlaceDisplayerVC.swift */,
+				075DBF8D1CEB9BDE00E65596 /* WaitressPlaceDisplayerVC.swift */,
 			);
 			name = "Place Details";
 			sourceTree = "<group>";
@@ -166,13 +182,14 @@
 			name = "Star Wars";
 			sourceTree = "<group>";
 		};
-		0706C9A41CC0761B000A11FF /* StarWarsPerson Details */ = {
+		0706C9A41CC0761B000A11FF /* Person Details */ = {
 			isa = PBXGroup;
 			children = (
 				0706C9A51CC0763B000A11FF /* APIModelDetailsVC.swift */,
 				0706C9A71CC07646000A11FF /* APIModelDetailsVC.storyboard */,
+				075DBF811CEB933A00E65596 /* PersonDisplayerVC.swift */,
 			);
-			name = "StarWarsPerson Details";
+			name = "Person Details";
 			sourceTree = "<group>";
 		};
 		0706C9A91CC0977E000A11FF /* demo-app */ = {
@@ -192,6 +209,15 @@
 				0706C9B11CC0A60F000A11FF /* StockholmTVC.storyboard */,
 			);
 			name = Stockholm;
+			sourceTree = "<group>";
+		};
+		07397DEA1CEA7DDF0070E27D /* Unbox */ = {
+			isa = PBXGroup;
+			children = (
+				07397DED1CEA7FE20070E27D /* Wrap.swift */,
+				07397DEB1CEA7DE70070E27D /* Unbox.swift */,
+			);
+			name = Unbox;
 			sourceTree = "<group>";
 		};
 		0745493D1CBEB5D30083A2EC = {
@@ -236,6 +262,7 @@
 		074549651CBEB8E20083A2EC /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				07397DEA1CEA7DDF0070E27D /* Unbox */,
 				07B8D7AD1CD123AF001EB05E /* ObjectMapper */,
 			);
 			name = vendor;
@@ -244,8 +271,10 @@
 		0745496C1CBEC1490083A2EC /* models */ = {
 			isa = PBXGroup;
 			children = (
-				0745495F1CBEB64F0083A2EC /* Place.swift */,
 				0706C9A21CC0739C000A11FF /* StarWarsPerson.swift */,
+				0745495F1CBEB64F0083A2EC /* Place.swift */,
+				075DBF831CEB95F100E65596 /* GooglePlace.swift */,
+				075DBF851CEB95F800E65596 /* WaitressPlace.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -389,10 +418,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				075DBF8A1CEB9BAB00E65596 /* WaitressPlaceDisplayerVC.storyboard in Resources */,
 				0706C99C1CC07126000A11FF /* BudapestTVC.storyboard in Resources */,
 				074549541CBEB5D30083A2EC /* LaunchScreen.storyboard in Resources */,
-				07D480021CBF4A5700693ADF /* PlaceDisplayerVC.storyboard in Resources */,
 				0706C9951CC06B04000A11FF /* DenverTVC.storyboard in Resources */,
+				075DBF881CEB9BA000E65596 /* GooglePlaceDisplayerVC.storyboard in Resources */,
 				074549511CBEB5D30083A2EC /* Assets.xcassets in Resources */,
 				0706C99F1CC0736D000A11FF /* StarWarsTVC.storyboard in Resources */,
 				0706C9B21CC0A60F000A11FF /* StockholmTVC.storyboard in Resources */,
@@ -423,26 +453,32 @@
 				07B8D7CC1CD123AF001EB05E /* ISO8601DateTransform.swift in Sources */,
 				07B8D7CF1CD123AF001EB05E /* TransformType.swift in Sources */,
 				0706C9A61CC0763B000A11FF /* APIModelDetailsVC.swift in Sources */,
-				07D480001CBF494100693ADF /* PlaceDisplayerVC.swift in Sources */,
 				07B8D7C81CD123AF001EB05E /* CustomDateFormatTransform.swift in Sources */,
 				07B9545D1CD28EE000CD6C4A /* CollieParse.swift in Sources */,
 				0706C9B01CC0A5E4000A11FF /* StockholmTVC.swift in Sources */,
 				07B8D7C21CD123AF001EB05E /* Map.swift in Sources */,
 				074549601CBEB64F0083A2EC /* CollieCollection.swift in Sources */,
+				075DBF821CEB933A00E65596 /* PersonDisplayerVC.swift in Sources */,
+				075DBF841CEB95F100E65596 /* GooglePlace.swift in Sources */,
 				0706C9AD1CC09AA3000A11FF /* Collie.swift in Sources */,
 				0706C99A1CC07116000A11FF /* DenverTVC.swift in Sources */,
 				0745494A1CBEB5D30083A2EC /* AppDelegate.swift in Sources */,
 				07B8D7CB1CD123AF001EB05E /* EnumTransform.swift in Sources */,
+				07397DEC1CEA7DE70070E27D /* Unbox.swift in Sources */,
 				07B8D7C11CD123AF001EB05E /* FromJSON.swift in Sources */,
 				07B1D8E91CD30BCE00C26F17 /* CachedThing.swift in Sources */,
 				074549621CBEB64F0083A2EC /* Place.swift in Sources */,
+				07397DEE1CEA7FE20070E27D /* Wrap.swift in Sources */,
 				07B8D7C51CD123AF001EB05E /* Operators.swift in Sources */,
 				07B8D7E01CD158AE001EB05E /* CollieCache.swift in Sources */,
 				07B8D7C91CD123AF001EB05E /* DateFormatterTransform.swift in Sources */,
 				07B8D7C61CD123AF001EB05E /* ToJSON.swift in Sources */,
 				07B9545F1CD2914C00CD6C4A /* Collie+HTTP.swift in Sources */,
+				075DBF8C1CEB9BD400E65596 /* GooglePlaceDisplayerVC.swift in Sources */,
 				074549671CBEB8F70083A2EC /* CollieModel.swift in Sources */,
 				0706C9AB1CC099EE000A11FF /* APIs.swift in Sources */,
+				075DBF8E1CEB9BDE00E65596 /* WaitressPlaceDisplayerVC.swift in Sources */,
+				075DBF861CEB95F800E65596 /* WaitressPlace.swift in Sources */,
 				074549641CBEB6600083A2EC /* BudapestTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

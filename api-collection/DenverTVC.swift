@@ -13,7 +13,7 @@ class DenverTVC: UITableViewController {
   @IBOutlet var metadata: UILabel!
   
   // ADVANTAGE: underlying model type is obvious
-  var places = CollieCollection<Place>(path: "/textsearch/json?query=Restaurants+in+Denver", api: APIs.googlePlaces)
+  var places = CollieCollection<GooglePlace>(path: "/textsearch/json?query=Restaurants+in+Denver", api: APIs.googlePlaces)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,7 +30,7 @@ class DenverTVC: UITableViewController {
   
   
   // --------------------------------------------------- MARK: APIHandler
-  func onPlacesUpdated(results: [Place]) {
+  func onPlacesUpdated(results: [GooglePlace]) {
     print("onPlacesUpdated \(results.count)")
     tableView.reloadData()
     metadata.text = "Count: \(results.count)"
@@ -57,8 +57,7 @@ class DenverTVC: UITableViewController {
     return cell
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print("didSelectRowAtIndexPath \(indexPath.row)")
-    if let vc = UIStoryboard(name: "PlaceDisplayerVC", bundle: nil).instantiateInitialViewController() as? PlaceDisplayerVC {
+    if let vc = UIStoryboard(name: "GooglePlaceDisplayerVC", bundle: nil).instantiateInitialViewController() as? GooglePlaceDisplayerVC {
       vc.model = places.latest[indexPath.row]
       self.navigationController?.pushViewController(vc, animated: true)
     }

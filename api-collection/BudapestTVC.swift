@@ -13,7 +13,7 @@ class BudapestTVC: UITableViewController {
   @IBOutlet var metadata: UILabel!
   
   // ADVANTAGE: underlying model type and path key is obvious and defined by the consumer
-  var places = CollieCollection<Place>(path: "/textsearch/json?query=Restaurants+in+Budapest", api: APIs.googlePlaces) // TODO: I prefer the syntax `APIs.googlePlaces.makeCollection(path: "")`, but the generics are fighting me
+  var places = CollieCollection<GooglePlace>(path: "/textsearch/json?query=Restaurants+in+Budapest", api: APIs.googlePlaces) // TODO: I prefer the syntax `APIs.googlePlaces.makeCollection(path: "")`, but the generics are fighting me
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -21,7 +21,7 @@ class BudapestTVC: UITableViewController {
     // ADVANTAGE: one call to set up fetch & observation
     // ADVANTAGE: error callback is optional
     // ADVANTAGE: don't need to make this view class a delegate
-    // ADVANTAGE: call your callback anything you like
+    // ADVANTAGE: name your callback anything you like
     places.observe( CollieHandler(onPlacesUpdated) )
     refreshControl = UIRefreshControl()
     refreshControl?.backgroundColor = UIColor.darkGrayColor()
@@ -32,7 +32,7 @@ class BudapestTVC: UITableViewController {
   
   
   // --------------------------------------------------- MARK: APIHandler
-  func onPlacesUpdated(results: [Place]) {
+  func onPlacesUpdated(results: [GooglePlace]) {
     print("onPlacesUpdated \(results.count)")
     tableView.reloadData()
     metadata.text = "Count: \(results.count)"
@@ -61,8 +61,7 @@ class BudapestTVC: UITableViewController {
     return cell
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print("didSelectRowAtIndexPath \(indexPath.row)")
-    if let vc = UIStoryboard(name: "PlaceDisplayerVC", bundle: nil).instantiateInitialViewController() as? PlaceDisplayerVC {
+    if let vc = UIStoryboard(name: "GooglePlaceDisplayerVC", bundle: nil).instantiateInitialViewController() as? GooglePlaceDisplayerVC {
       vc.model = places.latest[indexPath.row]
       self.navigationController?.pushViewController(vc, animated: true)
     }

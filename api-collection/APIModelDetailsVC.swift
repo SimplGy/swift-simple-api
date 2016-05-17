@@ -17,9 +17,9 @@ class APIModelDetailsVC<T where T: CollieModel>: UIViewController {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(true)
     guard let model = model else { return }
-    let json = model.toJSON()
+    guard let json = model.toJSON() else { return }
     navigationItem.title = (json["name"] as? [String])?[0]
-    textView.text = String( json )
+    textView.text = json.description
   }
   
 }

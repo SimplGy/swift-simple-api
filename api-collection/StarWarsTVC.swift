@@ -47,8 +47,8 @@ class StarWarsTVC: UITableViewController {
     return cell
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print("didSelectRowAtIndexPath \(indexPath.row)")
-    if let vc = UIStoryboard(name: "APIModelDetailsVC", bundle: nil).instantiateInitialViewController() as? APIModelDetailsVC<StarWarsPerson> {
+    //if let vc = UIStoryboard(name: "APIModelDetailsVC", bundle: nil).instantiateInitialViewController() as? APIModelDetailsVC<StarWarsPerson> {
+    if let vc = UIStoryboard(name: "APIModelDetailsVC", bundle: nil).instantiateInitialViewController() as? PersonDisplayerVC {
       vc.model = collie.latest[indexPath.row]
       self.navigationController?.pushViewController(vc, animated: true)
     }

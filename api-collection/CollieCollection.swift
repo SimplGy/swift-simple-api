@@ -11,7 +11,7 @@ import Foundation
 
 
 /// Common behaviors for working with sets of API Models
-class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
+class CollieCollection<Model where Model: CollieModel> {
   
   var pendingOperations = 0 // { didSet { print("pendingOperations: \(pendingOperations)") }}
   var thinking: Bool { return pendingOperations > 0 }
@@ -19,12 +19,12 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   // var beforeSave = [] // an array of things to do to the object before sending it to the server. client -> server
   
   // TODO: arrray of weak subscriber references
-  typealias Handler = CollieHandler<ModelProtocol>
+  typealias Handler = CollieHandler<Model>
   var subscribers = Set<Handler>()
   
   /// The latest server response this collection instance fetched
   /// It's safe to use this directly, but it may be an empty array if the data has never been fetched
-  var latest = [ModelProtocol]()
+  var latest = [Model]()
   
   let api: Collie
   let path: String
@@ -60,7 +60,7 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   */
   func get(finally: (()->())? = nil) {
     // TODO: is `String(ModelProtocol.self)` reliable, or do I need a static property on each model?
-    api.getCollection(self.path, modelType: String(ModelProtocol.self), success: self.gotJSON, failure: self.gotError, finally: finally)
+    api.getCollection(self.path, modelType: String(Model.self), success: self.gotJSON, failure: self.gotError, finally: finally)
   }
   
   
@@ -71,25 +71,25 @@ class CollieCollection<ModelProtocol where ModelProtocol: CollieModel> {
   private func gotJSON(jsonArray: Collie.JSONArray) {
 
     // ## 1. Create typed items from the JSON
-    let items = jsonArray.flatMap { ModelProtocol(JSON: $0) } // Constructor syntax
-    
-    // ### 2. See if the new objects are any different than what we already have. If not, don't broadcast an update
+    let items = jsonArray.flatMap { Model(json: $0) }
+  
+    // ## 2. See if the new objects are any different than what we already have. If not, don't broadcast an update
     var identical = true
     
     if items.count != latest.count {
       identical = false
-      Collie.trace("\(ModelProtocol.self) count \(items.count) != \(latest.count)")
+      Collie.trace("\(Model.self) count \(items.count) != \(latest.count)")
     } else {
       for (idx, item) in items.enumerate() {
         if !item.sameValueAs(latest[idx]) {
           identical = false
-          Collie.trace("\(ModelProtocol.self) has different values for at least item \(item)")
+          Collie.trace("\(Model.self) has different values for at least item \(item)")
           break
         }
       }
     }
     
-    // Notify subscribers on main thread
+    // ## 3. Notify subscribers on main thread
     dispatch_async(dispatch_get_main_queue()) {
       self.latest = items
       if identical { return Collie.trace("identical items, not broadcasting") }

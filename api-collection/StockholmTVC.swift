@@ -12,7 +12,7 @@ class StockholmTVC: UITableViewController {
   
   @IBOutlet var metadata: UILabel!
   
-  var places = CollieCollection<Place>(path: "/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000", api: APIs.waitress)
+  var places = CollieCollection<WaitressPlace>(path: "/places/nearby?region=8&lat=59.33&lng=18.06&meters=15000000", api: APIs.waitress)
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -30,7 +30,7 @@ class StockholmTVC: UITableViewController {
   
   
   // --------------------------------------------------- MARK: APIHandler
-  func onPlacesUpdated(results: [Place]) {
+  func onPlacesUpdated(results: [WaitressPlace]) {
     print("onPlacesUpdated \(results.count)")
     tableView.reloadData()
     metadata.text = "Count: \(results.count)"
@@ -58,8 +58,7 @@ class StockholmTVC: UITableViewController {
     return cell
   }
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    print("didSelectRowAtIndexPath \(indexPath.row)")
-    if let vc = UIStoryboard(name: "PlaceDisplayerVC", bundle: nil).instantiateInitialViewController() as? PlaceDisplayerVC {
+    if let vc = UIStoryboard(name: "WaitressPlaceDisplayerVC", bundle: nil).instantiateInitialViewController() as? WaitressPlaceDisplayerVC {
       vc.model = places.latest[indexPath.row]
       self.navigationController?.pushViewController(vc, animated: true)
     }

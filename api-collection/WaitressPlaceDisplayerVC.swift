@@ -9,17 +9,18 @@
 import UIKit
 
 
-class PlaceDisplayerVC: UIViewController {
-
+class WaitressPlaceDisplayerVC: UIViewController {
+  
   @IBOutlet var textView: UITextView!
-  var model: Place?
+  var model: WaitressPlace?
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(true)
     guard let model = model else { return }
+    navigationItem.title = model.name
     let json = model.toJSON()
-    navigationItem.title = json["name"] as? String
-    textView.text = model.description
+    
+    textView.text = "model.isSymmetrical()? \(model.isSymmetrical())\n\n" + (json?.description ?? "")
   }
   
 }
