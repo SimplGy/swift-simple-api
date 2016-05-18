@@ -8,8 +8,7 @@ import Foundation
 /**
  *  This is the base model protocol for objects that API Collie works with
  */
-//public protocol CollieModel: Mappable, Hashable, CustomStringConvertible {}
-public protocol CollieModel: Unboxable, WrapCustomizable, Hashable, CustomStringConvertible {
+public protocol CollieModel: Unboxable, WrapCustomizable, RawRepresentable, Hashable, CustomStringConvertible {
   
   /// Configure the mapping between client and server property names. keys are client names and values are JSON names eg: "authorId: "author_id"
   static var propertyMapping: [String: String]? { get }
@@ -58,33 +57,24 @@ extension CollieModel {
    - returns: true if all the values match
    */
   func isSymmetrical() -> Bool {
-    guard let json  = self.toJSON()     else { return false }
-    guard let other = Self(json: json, skipSymmetryValidation: true)  else { return false }
+    let json = self.rawValue
+    guard let other = Self(rawValue: json) else { return false }
     let isSymmetrical = self.sameValueAs(other)
     Collie.trace("[\(json["id"] ?? "")].isSymmetrical()? \(isSymmetrical)")
     return isSymmetrical
   }
   
-  func toJSON() -> Collie.JSON? {
+  // MARK: rawRepresentable
+  typealias RawValue = Collie.JSON
+  var rawValue: Collie.JSON { return try! Wrap(self) }
+  init?(rawValue: Collie.JSON) {
     do {
-      let json: Collie.JSON = try Wrap(self)
-      return json
-    } catch {
-      print("toJSON() error: \(error)")
-      return nil
-    }
-  }
-
-  init?(json: Collie.JSON, skipSymmetryValidation: Bool = false) {
-    do {
-      self = try Unbox(json)
-      if !skipSymmetryValidation { self.isSymmetrical() }
+      self = try Unbox(rawValue)
     } catch {
       print("init?(json:) error: \(error)")
       return nil
     }
   }
-  
   
   static func getKey(key: String) -> String { return Self.propertyMapping?[key] ?? key }
   func keyForWrappingPropertyNamed(propertyName: String) -> String? {
